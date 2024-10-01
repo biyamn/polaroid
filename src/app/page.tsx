@@ -1,24 +1,26 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
 import { supabase } from '@/supabase/supabaseClient';
 import { v4 as uuid } from 'uuid';
 
 export default function Home() {
-  const [uploadedFileUrl, setUploadedFileUrl] = useState([]);
-  const [file, setFile] = useState<File>();
-
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newFileName = uuid();
+
     const fileImage = e.target.files;
+    if (!fileImage || !fileImage[0]) return;
 
     const { data, error } = await supabase.storage
-      .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET)
-      .upload(fileImage, file, { upsert: true });
+      .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET as string)
+      .upload(newFileName, fileImage[0]);
+
     if (error) {
-      console.error(error);
+      console.error('Upload error:', error);
       return;
     }
+
+    console.log('File uploaded successfully:', data);
     return data;
   };
 
