@@ -9,26 +9,56 @@ export default function Home() {
   console.log('1');
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>('');
 
+  // const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const newFileName = uuid();
+
+  //   const fileImage = e.target.files;
+  //   if (!fileImage || !fileImage[0]) return;
+
+  //   const { data, error } = await supabase.storage
+  //     .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET as string)
+  //     .upload(newFileName, fileImage[0]);
+  //   if (error) {
+  //     console.error('Upload error:', error);
+  //     return;
+  //   }
+  //   const res = supabase.storage
+  //     .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET as string)
+  //     .getPublicUrl(data.path);
+  //   console.log('res.data.publicUrl:', res.data.publicUrl);
+  //   setUploadedImageUrl(res.data.publicUrl);
+  //   console.log('File uploaded successfully:', data);
+
+  //   return data;
+  // };
+
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const newFileName = uuid();
 
     const fileImage = e.target.files;
     if (!fileImage || !fileImage[0]) return;
 
+    // 업로드 전에 브라우저 내부에서만 유효한 임시 URL 생성
+    const localPreviewUrl = URL.createObjectURL(fileImage[0]);
+    setUploadedImageUrl(localPreviewUrl); // 임시 이미지 URL을 설정
+
+    // Supabase에 파일 업로드
     const { data, error } = await supabase.storage
       .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET as string)
       .upload(newFileName, fileImage[0]);
+
     if (error) {
       console.error('Upload error:', error);
       return;
     }
-    console.log('File uploaded successfully:', data);
 
+    // 실제 업로드된 파일의 public URL을 가져와서 설정
     const res = supabase.storage
       .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET as string)
       .getPublicUrl(data.path);
-    console.log('res.data.publicUrl:', res.data.publicUrl);
-    setUploadedImageUrl(res.data.publicUrl);
+
+    setUploadedImageUrl(res.data.publicUrl); // 실제 이미지 URL로 교체
+    console.log('File uploaded successfully:', data);
 
     return data;
   };
