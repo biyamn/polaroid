@@ -9,29 +9,6 @@ export default function Home() {
   console.log('1');
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>('');
 
-  // const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const newFileName = uuid();
-
-  //   const fileImage = e.target.files;
-  //   if (!fileImage || !fileImage[0]) return;
-
-  //   const { data, error } = await supabase.storage
-  //     .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET as string)
-  //     .upload(newFileName, fileImage[0]);
-  //   if (error) {
-  //     console.error('Upload error:', error);
-  //     return;
-  //   }
-  //   const res = supabase.storage
-  //     .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET as string)
-  //     .getPublicUrl(data.path);
-  //   console.log('res.data.publicUrl:', res.data.publicUrl);
-  //   setUploadedImageUrl(res.data.publicUrl);
-  //   console.log('File uploaded successfully:', data);
-
-  //   return data;
-  // };
-
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const newFileName = uuid();
 
@@ -58,7 +35,6 @@ export default function Home() {
       .getPublicUrl(data.path);
 
     setUploadedImageUrl(res.data.publicUrl); // 실제 이미지 URL로 교체
-    console.log('File uploaded successfully:', data);
 
     return data;
   };
