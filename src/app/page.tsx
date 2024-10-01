@@ -51,22 +51,34 @@ export default function Home() {
           className="cursor-pointer"
         />
       </div>
-      <div className="h-[600px] bg-white">
+      <div className="h-[560px] bg-white">
         <div className="p-5 flex flex-col h-full justify-between items-center">
-          <Image src={uploadedImageUrl} alt="이미지" width={50} height={50} />
-          <label
-            htmlFor="file"
-            className="h-full w-full flex items-center justify-center cursor-pointer bg-gray-100 my-5"
-          >
-            <input
-              type="file"
-              id="file"
-              name="file"
-              hidden
-              onChange={handleFileUpload}
-            />
-            <Image src="/upload.png" alt="업로드" height={40} width={40} />
-          </label>
+          {uploadedImageUrl ? (
+            <div className="h-96 w-full flex items-center justify-center cursor-pointer my-5 relative">
+              <div className="absolute inset-0">
+                <Image
+                  src={uploadedImageUrl}
+                  alt="이미지"
+                  fill
+                  style={{ objectFit: 'contain' }}
+                />
+              </div>
+            </div>
+          ) : (
+            <label
+              htmlFor="file"
+              className="h-96 w-full flex items-center justify-center cursor-pointer bg-gray-100 my-5"
+            >
+              <input
+                type="file"
+                id="file"
+                name="file"
+                hidden
+                onChange={handleFileUpload}
+              />
+              <Image src="/upload.png" alt="업로드" height={40} width={40} />
+            </label>
+          )}
           <textarea
             className="w-full"
             rows={4}
