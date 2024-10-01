@@ -3,8 +3,12 @@
 import Image from 'next/image';
 import { supabase } from '@/supabase/supabaseClient';
 import { v4 as uuid } from 'uuid';
+import { useState } from 'react';
 
 export default function Home() {
+  console.log('1');
+  const [uploadedImageUrl, setUploadedImageUrl] = useState<string>('');
+
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const newFileName = uuid();
 
@@ -14,13 +18,18 @@ export default function Home() {
     const { data, error } = await supabase.storage
       .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET as string)
       .upload(newFileName, fileImage[0]);
-
     if (error) {
       console.error('Upload error:', error);
       return;
     }
-
     console.log('File uploaded successfully:', data);
+
+    const res = supabase.storage
+      .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET as string)
+      .getPublicUrl(data.path);
+    console.log('res.data.publicUrl:', res.data.publicUrl);
+    setUploadedImageUrl(res.data.publicUrl);
+
     return data;
   };
 
@@ -44,6 +53,7 @@ export default function Home() {
       </div>
       <div className="h-[600px] bg-white">
         <div className="p-5 flex flex-col h-full justify-between items-center">
+          <Image src={uploadedImageUrl} alt="이미지" width={50} height={50} />
           <label
             htmlFor="file"
             className="h-full w-full flex items-center justify-center cursor-pointer bg-gray-100 my-5"
