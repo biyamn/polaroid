@@ -17,9 +17,9 @@ export default function Home() {
   };
 
   const handleClickSave = async () => {
-    // 텍스트, 이미지 저장 로직
+    // 텍스트, 이미지를 DB에 저장하기
 
-    // Supabase에 파일 업로드
+    // Supabase storage에 이미지 파일 업로드
     const { data, error } = await supabase.storage
       .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET as string)
       .upload(imageUuid, uploadImage as File, {
@@ -33,15 +33,24 @@ export default function Home() {
       return;
     }
 
-    // 실제 업로드된 파일의 public URL을 가져와서 설정
+    // 이미지가 업로드 완료되고 생성된 public URL을 가져와서 화면에 표시
     const res = supabase.storage
       .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET as string)
       .getPublicUrl(data.path);
 
     setUploadedImageUrl(res.data.publicUrl); // 실제 이미지 URL로 교체
 
+    // Supabase DB에 이미지 URL과 텍스트 저장
+    const { error: dbError } = await supabase
+      .from('polaroid-data')
+      .insert([{ image_url: res.data.publicUrl, description: text }]);
+
+    if (dbError) {
+      console.error('DB insert error:', dbError);
+      return;
+    }
+
     setIsEditing((prev) => !prev);
-    return data;
   };
 
   const handleSaveLocalImage = async (
@@ -56,8 +65,9 @@ export default function Home() {
 
     // 업로드 전에 브라우저 내부에서만 유효한 임시 URL 생성
     const localPreviewUrl = URL.createObjectURL(file[0]);
-    setUploadedImageUrl(localPreviewUrl); // 임시 이미지 URL을 설정
+    setUploadedImageUrl(localPreviewUrl);
 
+    // 실제로 supabase storage에 업로드되기 전에 이미지를 로컬에서 보여주기
     setUploadImage(file[0]);
   };
 
@@ -103,7 +113,7 @@ export default function Home() {
       <div className="h-[560px] bg-white">
         <div className="p-5 flex flex-col h-full justify-between items-center">
           {uploadedImageUrl ? (
-            <div className="h-96 w-full flex items-center justify-center cursor-pointer my-5 relative">
+            <div className="h-96 w-full flex items-center justify-center my-5 relative">
               <div className="absolute inset-0">
                 <Image
                   src={uploadedImageUrl}
