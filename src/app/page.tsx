@@ -6,12 +6,16 @@ import { v4 as uuid } from 'uuid';
 import { useState } from 'react';
 
 export default function Home() {
-  console.log('1');
+  const [isEditing, setIsEditing] = useState<boolean>(false);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>('');
 
+  const handleClickEdit = () => {
+    setIsEditing((prev) => !prev);
+  };
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const newFileName = uuid();
 
+    // 파일이 없으면 종료
     const fileImage = e.target.files;
     if (!fileImage || !fileImage[0]) return;
 
@@ -55,6 +59,7 @@ export default function Home() {
           height={30}
           width={30}
           className="cursor-pointer"
+          onClick={handleClickEdit}
         />
       </div>
       <div className="h-[560px] bg-white">
@@ -81,6 +86,7 @@ export default function Home() {
                 name="file"
                 hidden
                 onChange={handleFileUpload}
+                disabled={!isEditing}
               />
               <Image src="/upload.png" alt="업로드" height={40} width={40} />
             </label>
@@ -89,6 +95,7 @@ export default function Home() {
             className="w-full"
             rows={4}
             placeholder="기념할 하루에 대해 설명해주세요."
+            disabled={!isEditing}
           />
         </div>
       </div>
