@@ -88,15 +88,18 @@ export default function Home() {
   const handleDownloadImage = () => {
     // 리액트 컴포넌트를 이미지로 변환하여 다운로드
     if (elementRef.current) {
-      toPng(elementRef.current, { cacheBust: false })
+      // elementRef가 참조하는 DOM 요소가 존재하는지 확인
+      toPng(elementRef.current, { cacheBust: false }) // 해당 요소를 PNG로 변환
         .then((dataUrl) => {
-          const link = document.createElement('a');
-          link.download = 'my-image-name.png';
-          link.href = dataUrl;
-          link.click();
+          // 변환이 완료되면, PNG 이미지의 Data URL을 반환
+          const link = document.createElement('a'); // 다운로드를 위한 <a> 태그 생성
+          link.download = '폴라로이드.png'; // 다운로드될 파일의 이름 설정
+          link.href = dataUrl; // <a> 태그의 href 속성에 변환된 이미지의 Data URL을 설정
+          link.click(); // 링크 클릭을 트리거하여 다운로드 시작
         })
         .catch((err) => {
-          console.log(err);
+          // 변환 과정에서 에러가 발생한 경우 처리
+          console.log(err); // 에러를 콘솔에 출력
         });
     }
   };
