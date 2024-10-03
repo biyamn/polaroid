@@ -45,23 +45,43 @@ export default function Home() {
 
   return (
     <div className="h-dvh bg-cyan-50 p-6 pt-20">
-      <div className="flex justify-between px-6 py-4">
-        <Image
-          src="/print.png"
-          alt="인쇄"
-          height={30}
-          width={30}
-          className="cursor-pointer"
-        />
-        <Image
-          src="/pen.png"
-          alt="수정"
-          height={30}
-          width={30}
-          className="cursor-pointer"
-          onClick={handleClickEdit}
-        />
-      </div>
+      {isEditing ? (
+        <div className="flex justify-between px-6 py-4">
+          <Image
+            src="/print.png"
+            alt="인쇄"
+            height={30}
+            width={30}
+            className="cursor-pointer"
+          />
+          <Image
+            src="/pen.png"
+            alt="수정"
+            height={30}
+            width={30}
+            className="cursor-pointer"
+            onClick={handleClickEdit}
+          />
+        </div>
+      ) : (
+        <div className="flex justify-between px-6 py-4">
+          <Image
+            src="/trashcan.png"
+            alt="삭제"
+            height={30}
+            width={30}
+            className="cursor-pointer"
+          />
+          <Image
+            src="/save.png"
+            alt="저장"
+            height={30}
+            width={30}
+            className="cursor-pointer"
+            onClick={handleClickEdit}
+          />
+        </div>
+      )}
       <div className="h-[560px] bg-white">
         <div className="p-5 flex flex-col h-full justify-between items-center">
           {uploadedImageUrl ? (
