@@ -8,25 +8,25 @@ import { useState } from 'react';
 export default function Home() {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>('');
+  const [text, setText] = useState<string>('');
+  const [imageUuid, setImageUuid] = useState<string>('');
+  const [uploadImage, setUploadImage] = useState<File | null>(null);
 
   const handleClickEdit = () => {
     setIsEditing((prev) => !prev);
   };
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newFileName = uuid();
 
-    // 파일이 없으면 종료
-    const fileImage = e.target.files;
-    if (!fileImage || !fileImage[0]) return;
-
-    // 업로드 전에 브라우저 내부에서만 유효한 임시 URL 생성
-    const localPreviewUrl = URL.createObjectURL(fileImage[0]);
-    setUploadedImageUrl(localPreviewUrl); // 임시 이미지 URL을 설정
+  const handleClickSave = async () => {
+    // 텍스트, 이미지 저장 로직
 
     // Supabase에 파일 업로드
     const { data, error } = await supabase.storage
       .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET as string)
-      .upload(newFileName, fileImage[0]);
+      .upload(imageUuid, uploadImage as File, {
+        headers: {
+          'x-upsert': 'true', // optionally set upsert to true to overwrite existing files
+        },
+      });
 
     if (error) {
       console.error('Upload error:', error);
@@ -40,12 +40,30 @@ export default function Home() {
 
     setUploadedImageUrl(res.data.publicUrl); // 실제 이미지 URL로 교체
 
+    setIsEditing((prev) => !prev);
     return data;
+  };
+
+  const handleSaveLocalImage = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const newFileName = uuid();
+    setImageUuid(newFileName);
+
+    // 파일이 없으면 종료
+    const file = e.target.files;
+    if (!file || !file[0]) return;
+
+    // 업로드 전에 브라우저 내부에서만 유효한 임시 URL 생성
+    const localPreviewUrl = URL.createObjectURL(file[0]);
+    setUploadedImageUrl(localPreviewUrl); // 임시 이미지 URL을 설정
+
+    setUploadImage(file[0]);
   };
 
   return (
     <div className="h-dvh bg-cyan-50 p-6 pt-20">
-      {isEditing ? (
+      {!isEditing ? (
         <div className="flex justify-between px-6 py-4">
           <Image
             src="/print.png"
@@ -78,7 +96,7 @@ export default function Home() {
             height={30}
             width={30}
             className="cursor-pointer"
-            onClick={handleClickEdit}
+            onClick={handleClickSave}
           />
         </div>
       )}
@@ -105,7 +123,7 @@ export default function Home() {
                 id="file"
                 name="file"
                 hidden
-                onChange={handleFileUpload}
+                onChange={handleSaveLocalImage}
                 disabled={!isEditing}
               />
               <Image src="/upload.png" alt="업로드" height={40} width={40} />
@@ -116,6 +134,8 @@ export default function Home() {
             rows={4}
             placeholder="기념할 하루에 대해 설명해주세요."
             disabled={!isEditing}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
           />
         </div>
       </div>
