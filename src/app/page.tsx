@@ -3,7 +3,8 @@
 import Image from 'next/image';
 import { supabase } from '@/supabase/supabaseClient';
 import { v4 as uuid } from 'uuid';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { toPng } from 'html-to-image';
 
 export default function Home() {
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -11,6 +12,7 @@ export default function Home() {
   const [text, setText] = useState<string>('');
   const [imageUuid, setImageUuid] = useState<string>('');
   const [uploadImage, setUploadImage] = useState<File | null>(null);
+  const elementRef = useRef(null);
 
   const handleClickEdit = () => {
     setIsEditing((prev) => !prev);
@@ -82,6 +84,23 @@ export default function Home() {
     setUploadImage(null);
     setText('');
   };
+
+  const handleDownloadImage = () => {
+    // 리액트 컴포넌트를 이미지로 변환하여 다운로드
+    if (elementRef.current) {
+      toPng(elementRef.current, { cacheBust: false })
+        .then((dataUrl) => {
+          const link = document.createElement('a');
+          link.download = 'my-image-name.png';
+          link.href = dataUrl;
+          link.click();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
   return (
     <div className="h-dvh bg-cyan-50 p-6 pt-20">
       {!isEditing ? (
@@ -91,7 +110,8 @@ export default function Home() {
             alt="인쇄"
             height={30}
             width={30}
-            className="cursor-pointer"
+            className="cursor-pointer downloadButton"
+            onClick={handleDownloadImage}
           />
           <Image
             src="/pen.png"
@@ -122,7 +142,7 @@ export default function Home() {
           />
         </div>
       )}
-      <div className="h-[560px] bg-white">
+      <div className="h-[560px] bg-white polaroid" ref={elementRef}>
         <div className="p-5 flex flex-col h-full justify-between items-center">
           {uploadedImageUrl ? (
             <div className="h-96 w-full flex items-center justify-center my-5 relative">
