@@ -19,6 +19,12 @@ export default function Home() {
   const handleClickSave = async () => {
     // 텍스트, 이미지를 DB에 저장하기
 
+    // 이미지와 텍스트가 없으면 종료
+    if (!text && !uploadImage) {
+      setIsEditing(false);
+      return;
+    }
+
     // Supabase storage에 이미지 파일 업로드
     const { data, error } = await supabase.storage
       .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET as string)
@@ -71,6 +77,11 @@ export default function Home() {
     setUploadImage(file[0]);
   };
 
+  const handleDelete = () => {
+    setUploadedImageUrl('');
+    setUploadImage(null);
+    setText('');
+  };
   return (
     <div className="h-dvh bg-cyan-50 p-6 pt-20">
       {!isEditing ? (
@@ -99,6 +110,7 @@ export default function Home() {
             height={30}
             width={30}
             className="cursor-pointer"
+            onClick={handleDelete}
           />
           <Image
             src="/save.png"
