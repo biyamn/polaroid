@@ -105,7 +105,7 @@ export default function Home() {
   };
 
   return (
-    <div className="h-dvh bg-cyan-50 p-6 pt-20">
+    <div className="h-dvh bg-yellow-50 p-6 pt-20 overflow-auto">
       {!isEditing ? (
         <div className="flex justify-between px-6 py-4">
           <Image
