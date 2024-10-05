@@ -21,6 +21,51 @@ export default function Home() {
   const handleClickSave = async () => {
     // 텍스트, 이미지를 DB에 저장하기
 
+    setIsEditing((prev) => !prev);
+  };
+
+  const handleSaveLocalImage = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const newFileName = uuid();
+    setImageUuid(newFileName);
+
+    // 파일이 없으면 종료
+    const file = e.target.files;
+    if (!file || !file[0]) return;
+
+    // 업로드 전에 브라우저 내부에서만 유효한 임시 URL 생성
+    const localPreviewUrl = URL.createObjectURL(file[0]);
+    setUploadedImageUrl(localPreviewUrl);
+
+    // 실제로 supabase storage에 업로드되기 전에 이미지를 로컬에서 보여주기
+    setUploadImage(file[0]);
+  };
+
+  const handleDelete = () => {
+    setUploadedImageUrl('');
+    setUploadImage(null);
+    setText('');
+  };
+
+  const handleDownloadImage = async () => {
+    // 리액트 컴포넌트를 이미지로 변환하여 다운로드
+    if (elementRef.current) {
+      // elementRef가 참조하는 DOM 요소가 존재하는지 확인
+      toPng(elementRef.current, { cacheBust: false }) // 해당 요소를 PNG로 변환
+        .then((dataUrl) => {
+          // 변환이 완료되면, PNG 이미지의 Data URL을 반환
+          const link = document.createElement('a'); // 다운로드를 위한 <a> 태그 생성
+          link.download = '폴라로이드.png'; // 다운로드될 파일의 이름 설정
+          link.href = dataUrl; // <a> 태그의 href 속성에 변환된 이미지의 Data URL을 설정
+          link.click(); // 링크 클릭을 트리거하여 다운로드 시작
+        })
+        .catch((err) => {
+          // 변환 과정에서 에러가 발생한 경우 처리
+          console.log(err); // 에러를 콘솔에 출력
+        });
+    }
+
     // 이미지와 텍스트가 없으면 종료
     if (!text && !uploadImage) {
       setIsEditing(false);
@@ -56,51 +101,6 @@ export default function Home() {
     if (dbError) {
       console.error('DB insert error:', dbError);
       return;
-    }
-
-    setIsEditing((prev) => !prev);
-  };
-
-  const handleSaveLocalImage = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const newFileName = uuid();
-    setImageUuid(newFileName);
-
-    // 파일이 없으면 종료
-    const file = e.target.files;
-    if (!file || !file[0]) return;
-
-    // 업로드 전에 브라우저 내부에서만 유효한 임시 URL 생성
-    const localPreviewUrl = URL.createObjectURL(file[0]);
-    setUploadedImageUrl(localPreviewUrl);
-
-    // 실제로 supabase storage에 업로드되기 전에 이미지를 로컬에서 보여주기
-    setUploadImage(file[0]);
-  };
-
-  const handleDelete = () => {
-    setUploadedImageUrl('');
-    setUploadImage(null);
-    setText('');
-  };
-
-  const handleDownloadImage = () => {
-    // 리액트 컴포넌트를 이미지로 변환하여 다운로드
-    if (elementRef.current) {
-      // elementRef가 참조하는 DOM 요소가 존재하는지 확인
-      toPng(elementRef.current, { cacheBust: false }) // 해당 요소를 PNG로 변환
-        .then((dataUrl) => {
-          // 변환이 완료되면, PNG 이미지의 Data URL을 반환
-          const link = document.createElement('a'); // 다운로드를 위한 <a> 태그 생성
-          link.download = '폴라로이드.png'; // 다운로드될 파일의 이름 설정
-          link.href = dataUrl; // <a> 태그의 href 속성에 변환된 이미지의 Data URL을 설정
-          link.click(); // 링크 클릭을 트리거하여 다운로드 시작
-        })
-        .catch((err) => {
-          // 변환 과정에서 에러가 발생한 경우 처리
-          console.log(err); // 에러를 콘솔에 출력
-        });
     }
   };
 
@@ -183,7 +183,7 @@ export default function Home() {
             </label>
           )}
           <textarea
-            className="relative -top-16 w-full px-4 z-50 bg-transparent"
+            className="relative -top-16 w-full px-4 z-50 bg-transparent resize-none"
             rows={2}
             placeholder="어떤 기념할 일이 있었나요?"
             disabled={!isEditing}
