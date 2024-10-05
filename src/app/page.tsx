@@ -5,6 +5,12 @@ import { supabase } from '@/supabase/supabaseClient';
 import { v4 as uuid } from 'uuid';
 import { useRef, useState } from 'react';
 import { toPng } from 'html-to-image';
+import localFont from 'next/font/local';
+
+const timeFont = localFont({
+  src: '../time.ttf',
+  display: 'swap',
+});
 
 export default function Home() {
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -13,6 +19,7 @@ export default function Home() {
   const [imageUuid, setImageUuid] = useState<string>('');
   const [uploadImage, setUploadImage] = useState<File | null>(null);
   const elementRef = useRef(null);
+  const [date, setDate] = useState(new Date());
 
   const handleClickEdit = () => {
     setIsEditing((prev) => !prev);
@@ -182,8 +189,17 @@ export default function Home() {
               <Image src="/upload.png" alt="업로드" height={40} width={40} />
             </label>
           )}
+          <div className={`${timeFont.className} absolute bottom-36 right-10`}>
+            <input
+              type="date"
+              value={date.toISOString().split('T')[0]}
+              onChange={(e) => setDate(new Date(e.target.value))}
+              disabled={!isEditing}
+              className="bg-transparent text-right text-sm absolute bottom-0 -right-4 text-yellow-400"
+            />
+          </div>
           <textarea
-            className="relative -top-16 w-full px-4 z-50 bg-transparent resize-none"
+            className="relative -top-16 w-full px-4 z-50 bg-transparent resize-none "
             rows={2}
             placeholder="어떤 기념할 일이 있었나요?"
             disabled={!isEditing}
