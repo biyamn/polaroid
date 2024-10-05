@@ -195,7 +195,7 @@ export default function Home() {
               value={date.toISOString().split('T')[0]}
               onChange={(e) => setDate(new Date(e.target.value))}
               disabled={!isEditing}
-              className="bg-transparent text-right text-sm absolute bottom-0 -right-4 text-yellow-400"
+              className="w-[260px] bg-transparent text-right text-sm absolute bottom-0 -right-4 text-yellow-400"
             />
           </div>
           <textarea
