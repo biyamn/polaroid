@@ -145,11 +145,19 @@ export default function Home() {
           />
         </div>
       )}
-      <div className="h-[560px] bg-white polaroid" ref={elementRef}>
-        <div className="p-5 flex flex-col h-full justify-between items-center">
+      {/* 프레임 시작 */}
+      <div className="flex justify-center items-center relative">
+        <div
+          ref={elementRef}
+          className="flex flex-col justify-center items-center relative"
+        >
+          <div className="relative">
+            <Image src="/frame.jpg" alt="폴라로이드" height={516} width={324} />
+          </div>
           {uploadedImageUrl ? (
-            <div className="h-96 w-full flex items-center justify-center my-5 relative">
-              <div className="absolute inset-0">
+            <div className="top-10 left-4 h-[382px] w-[288px] flex items-center justify-center absolute">
+              <div className="inset-0">
+                <div className="h-[382px] w-[288px] bg-white"></div>
                 <Image
                   src={uploadedImageUrl}
                   alt="이미지"
@@ -161,7 +169,7 @@ export default function Home() {
           ) : (
             <label
               htmlFor="file"
-              className="h-96 w-full flex items-center justify-center cursor-pointer bg-gray-100 my-5"
+              className="absolute top-10 left-4 h-[382px] w-[288px] flex items-center justify-center cursor-pointer bg-white"
             >
               <input
                 type="file"
@@ -175,9 +183,9 @@ export default function Home() {
             </label>
           )}
           <textarea
-            className="w-full"
-            rows={4}
-            placeholder="기념할 하루에 대해 설명해주세요."
+            className="relative -top-16 w-full px-4 z-50 bg-transparent"
+            rows={2}
+            placeholder="어떤 기념할 일이 있었나요?"
             disabled={!isEditing}
             value={text}
             onChange={(e) => setText(e.target.value)}
