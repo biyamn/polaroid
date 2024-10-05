@@ -18,7 +18,7 @@ export default function Home() {
   const [text, setText] = useState<string>('');
   const [imageUuid, setImageUuid] = useState<string>('');
   const [uploadImage, setUploadImage] = useState<File | null>(null);
-  const elementRef = useRef(null);
+  const elementRef = useRef<HTMLDivElement>(null);
   const [date, setDate] = useState(new Date());
 
   const handleClickEdit = () => {
@@ -58,9 +58,15 @@ export default function Home() {
   const handleDownloadImage = async () => {
     // 리액트 컴포넌트를 이미지로 변환하여 다운로드
     if (elementRef.current) {
+      // 이미지를 다운로드하기 전에 화면에 표시되는 이미지 크기 축소
+      elementRef.current.style.transform = 'scale(0.7)';
+      elementRef.current.style.transformOrigin = 'center';
+
       // elementRef가 참조하는 DOM 요소가 존재하는지 확인
       toPng(elementRef.current, { cacheBust: false }) // 해당 요소를 PNG로 변환
         .then((dataUrl) => {
+          // 이미지 다운로드 이후 화면에 표시되는 이미지 크기 복원
+          elementRef.current!.style.transform = 'scale(1)';
           // 변환이 완료되면, PNG 이미지의 Data URL을 반환
           const link = document.createElement('a'); // 다운로드를 위한 <a> 태그 생성
           link.download = '폴라로이드.png'; // 다운로드될 파일의 이름 설정
