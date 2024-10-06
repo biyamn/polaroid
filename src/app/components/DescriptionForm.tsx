@@ -21,9 +21,11 @@ const DescriptionForm = ({
         onChange={(e) => setText(e.target.value)}
         maxLength={maxLength}
       />
-      <div className="absolute bottom-0.5 right-2 text-xs text-gray-500">
-        {text.length}/{maxLength}
-      </div>
+      {isEditing && (
+        <div className="absolute bottom-0.5 right-2 text-xs text-gray-500">
+          {text.length}/{maxLength}
+        </div>
+      )}
     </div>
   );
 };
