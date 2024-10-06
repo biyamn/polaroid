@@ -3,7 +3,7 @@ import { supabase } from '@/supabase/supabaseClient';
 import { toPng } from 'html-to-image';
 
 type PrintAndEditBarProps = {
-  setIsEditing: (isEditing: boolean) => void;
+  setIsEditing: (isEditing: boolean | ((prev: boolean) => boolean)) => void;
   imageUuid: string;
   uploadImage: File | null;
   elementRef: React.RefObject<HTMLDivElement>;

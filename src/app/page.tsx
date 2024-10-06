@@ -7,6 +7,7 @@ import { useRef, useState } from 'react';
 
 import localFont from 'next/font/local';
 import PrintAndEditBar from './components/PrintAndEditBar';
+import RemoveAndConfirmBar from './components/RemoveAndConfirmBar';
 
 const timeFont = localFont({
   src: '../time.ttf',
@@ -21,12 +22,6 @@ export default function Home() {
   const [uploadImage, setUploadImage] = useState<File | null>(null);
   const elementRef = useRef<HTMLDivElement>(null);
   const [date, setDate] = useState(new Date());
-
-  const handleClickSave = async () => {
-    // 텍스트, 이미지를 DB에 저장하기
-
-    setIsEditing((prev) => !prev);
-  };
 
   const handleSaveLocalImage = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -46,12 +41,6 @@ export default function Home() {
     setUploadImage(file[0]);
   };
 
-  const handleDelete = () => {
-    setUploadedImageUrl('');
-    setUploadImage(null);
-    setText('');
-  };
-
   return (
     <div className="h-dvh bg-yellow-50 p-6 pt-16 overflow-y-hidden">
       {!isEditing ? (
@@ -64,24 +53,12 @@ export default function Home() {
           setUploadedImageUrl={setUploadedImageUrl}
         />
       ) : (
-        <div className="flex justify-between px-6 py-4">
-          <Image
-            src="/trashcan.png"
-            alt="삭제"
-            height={30}
-            width={30}
-            className="cursor-pointer"
-            onClick={handleDelete}
-          />
-          <Image
-            src="/save.png"
-            alt="저장"
-            height={30}
-            width={30}
-            className="cursor-pointer"
-            onClick={handleClickSave}
-          />
-        </div>
+        <RemoveAndConfirmBar
+          setIsEditing={setIsEditing}
+          setUploadedImageUrl={setUploadedImageUrl}
+          setUploadImage={setUploadImage}
+          setText={setText}
+        />
       )}
       {/* 프레임 시작 */}
       <div className="flex justify-center items-center relative">
