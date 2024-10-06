@@ -6,8 +6,9 @@ import { v4 as uuid } from 'uuid';
 import { useRef, useState } from 'react';
 
 import localFont from 'next/font/local';
-import PrintAndEditBar from './components/PrintAndEditBar';
-import RemoveAndConfirmBar from './components/RemoveAndConfirmBar';
+import PrintAndEditBar from '@/app/components/PrintAndEditBar';
+import RemoveAndConfirmBar from '@/app/components/RemoveAndConfirmBar';
+import DescriptionForm from '@/app/components/DescriptionForm';
 
 const timeFont = localFont({
   src: '../time.ttf',
@@ -106,13 +107,10 @@ export default function Home() {
               className="w-[260px] bg-transparent text-right text-sm absolute bottom-0 -right-4 text-yellow-400"
             />
           </div>
-          <textarea
-            className="relative -top-16 w-full px-4 z-50 bg-transparent resize-none "
-            rows={2}
-            placeholder="어떤 기념할 일이 있었나요?"
-            disabled={!isEditing}
-            value={text}
-            onChange={(e) => setText(e.target.value)}
+          <DescriptionForm
+            isEditing={isEditing}
+            text={text}
+            setText={setText}
           />
         </div>
       </div>
