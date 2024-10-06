@@ -5,15 +5,10 @@ import Image from 'next/image';
 import { v4 as uuid } from 'uuid';
 import { useRef, useState } from 'react';
 
-import localFont from 'next/font/local';
 import PrintAndEditBar from '@/app/components/PrintAndEditBar';
 import RemoveAndConfirmBar from '@/app/components/RemoveAndConfirmBar';
 import DescriptionForm from '@/app/components/DescriptionForm';
-
-const timeFont = localFont({
-  src: '../time.ttf',
-  display: 'swap',
-});
+import DateForm from '@/app/components/DateForm';
 
 export default function Home() {
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -22,7 +17,6 @@ export default function Home() {
   const [imageUuid, setImageUuid] = useState<string>('');
   const [uploadImage, setUploadImage] = useState<File | null>(null);
   const elementRef = useRef<HTMLDivElement>(null);
-  const [date, setDate] = useState(new Date());
 
   const handleSaveLocalImage = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -98,15 +92,7 @@ export default function Home() {
               <Image src="/upload.png" alt="업로드" height={40} width={40} />
             </label>
           )}
-          <div className={`${timeFont.className} absolute bottom-36 right-10`}>
-            <input
-              type="date"
-              value={date.toISOString().split('T')[0]}
-              onChange={(e) => setDate(new Date(e.target.value))}
-              disabled={!isEditing}
-              className="w-[260px] bg-transparent text-right text-sm absolute bottom-0 -right-4 text-yellow-400"
-            />
-          </div>
+          <DateForm isEditing={isEditing} />
           <DescriptionForm
             isEditing={isEditing}
             text={text}
