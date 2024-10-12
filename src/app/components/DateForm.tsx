@@ -2,7 +2,7 @@ import localFont from 'next/font/local';
 import { useState } from 'react';
 
 const timeFont = localFont({
-  src: '../../time.ttf',
+  src: '../fonts/time.ttf',
   display: 'swap',
 });
 

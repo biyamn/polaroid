@@ -4,7 +4,7 @@ import './globals.css';
 import localFont from 'next/font/local';
 
 const neoFont = localFont({
-  src: '../neo.woff2',
+  src: './fonts/Pretendard-Regular.woff',
   display: 'swap',
 });
 
