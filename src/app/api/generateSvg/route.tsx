@@ -4,8 +4,12 @@ import path from 'path';
 import { NextResponse } from 'next/server';
 
 // 폰트 로드
-const neoFontBuffer = fs.readFileSync(
+const pretendardFontBuffer = fs.readFileSync(
   path.join(process.cwd(), 'src', 'app', 'fonts', 'Pretendard-Regular.woff')
+);
+
+const timeFontBuffer = fs.readFileSync(
+  path.join(process.cwd(), 'src', 'app', 'fonts', 'time.ttf')
 );
 
 export async function GET(req: Request) {
@@ -42,7 +46,6 @@ export async function GET(req: Request) {
               style={{ height: '516px', width: '324px' }}
             />
           </div>
-
           <img
             src={uploadedImageUrl}
             alt="이미지"
@@ -56,18 +59,18 @@ export async function GET(req: Request) {
               width: '288px',
             }}
           />
-
           <div
             style={{
               display: 'flex',
               position: 'absolute',
-              bottom: '36px',
-              right: '10px',
+              bottom: '144px',
+              right: '90px',
+              fontFamily: 'timeFont',
+              color: '#facc15',
             }}
           >
             <span>{date}</span>
           </div>
-
           <div
             style={{
               display: 'flex',
@@ -99,8 +102,14 @@ export async function GET(req: Request) {
         fonts: [
           {
             style: 'normal',
-            name: 'neo',
-            data: neoFontBuffer,
+            name: 'pretendard',
+            data: pretendardFontBuffer,
+            weight: 600,
+          },
+          {
+            style: 'normal',
+            name: 'timeFont',
+            data: timeFontBuffer,
             weight: 600,
           },
         ],
