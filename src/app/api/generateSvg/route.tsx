@@ -76,7 +76,8 @@ export async function GET(req: Request) {
               display: 'flex',
               width: '100%',
               position: 'relative',
-              top: '-16px',
+              bottom: '70px',
+              right: '-50px',
             }}
           >
             <div
