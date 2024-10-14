@@ -43,39 +43,19 @@ export async function GET(req: Request) {
             />
           </div>
 
-          <div
+          <img
+            src={uploadedImageUrl}
+            alt="이미지"
             style={{
+              display: 'flex',
+              objectFit: 'contain',
               position: 'absolute',
-              top: '10px',
-              left: '4px',
+              top: '43px',
+              left: '54px',
               height: '382px',
               width: '288px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
             }}
-          >
-            <div style={{ display: 'flex', inset: 0, position: 'absolute' }}>
-              <div
-                style={{
-                  display: 'flex',
-                  height: '382px',
-                  width: '288px',
-                  backgroundColor: 'white',
-                }}
-              />
-              <img
-                src={uploadedImageUrl}
-                alt="이미지"
-                style={{
-                  display: 'flex',
-                  objectFit: 'contain',
-                  height: '100%',
-                  width: '100%',
-                }}
-              />
-            </div>
-          </div>
+          />
 
           <div
             style={{

@@ -11,7 +11,7 @@ export default function Page() {
         date: '2024-02-02',
         text: '기념할 일',
         uploadedImageUrl:
-          'https://eagdqfebxhcyrcckqfho.supabase.co/storage/v1/object/public/polaroid-image/fc7abeed-a70d-4575-bd52-8bb4b6977eb4',
+          'https://eagdqfebxhcyrcckqfho.supabase.co/storage/v1/object/public/polaroid-image/f5922fee-206a-4e65-a5fa-620483d1f284',
       }).toString();
 
       const res = await fetch(`/api/generateSvg?${query}`); // API 경로에 쿼리 추가
