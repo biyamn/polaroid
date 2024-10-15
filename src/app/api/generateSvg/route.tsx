@@ -63,7 +63,7 @@ export async function GET(req: Request) {
             style={{
               display: 'flex',
               position: 'absolute',
-              bottom: '144px',
+              bottom: '154px',
               right: '90px',
               fontFamily: 'timeFont',
               color: '#facc15',
@@ -90,6 +90,7 @@ export async function GET(req: Request) {
                 resize: 'none',
                 fontSize: '15px',
                 color: '#1F2937', // text-gray-900
+                maxWidth: '300px',
               }}
             >
               {text}
@@ -99,7 +100,7 @@ export async function GET(req: Request) {
       </div>,
       {
         width: 400,
-        height: 600, // 적절한 높이로 설정
+        height: 500, // 적절한 높이로 설정
         fonts: [
           {
             style: 'normal',
