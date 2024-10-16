@@ -2,6 +2,13 @@ import satori from 'satori';
 import fs from 'fs';
 import path from 'path';
 import { NextResponse } from 'next/server';
+import { Resvg } from '@resvg/resvg-js';
+
+export function convertSvgToPngByResvg(targetSvg: Buffer | string) {
+  const resvg = new Resvg(targetSvg, {});
+  const pngData = resvg.render();
+  return pngData.asPng();
+}
 
 // 폰트 로드
 const pretendardFontBuffer = fs.readFileSync(
@@ -118,11 +125,13 @@ export async function GET(req: Request) {
       }
     );
 
+    const pngBuffer = convertSvgToPngByResvg(svg);
+
     // 성공적으로 SVG를 생성한 후 반환
-    return new NextResponse(svg, {
+    return new NextResponse(pngBuffer, {
       status: 200,
       headers: {
-        'Content-Type': 'image/svg+xml',
+        'Content-Type': 'image/png',
       },
     });
   } catch (error) {
