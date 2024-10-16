@@ -2,8 +2,14 @@ import satori from 'satori';
 import fs from 'fs';
 import path from 'path';
 import { NextResponse } from 'next/server';
+import { Resvg } from '@resvg/resvg-js';
 import Image from 'next/image';
-import { convertSvgToPngByResvg } from '@/app/utils/convertSvgToPngByResvg';
+
+export function convertSvgToPngByResvg(targetSvg: Buffer | string) {
+  const resvg = new Resvg(targetSvg, {});
+  const pngData = resvg.render();
+  return pngData.asPng();
+}
 
 // 폰트 로드
 const pretendardFontBuffer = fs.readFileSync(
