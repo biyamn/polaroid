@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { NextResponse } from 'next/server';
 import { Resvg } from '@resvg/resvg-js';
+import Image from 'next/image';
 
 export function convertSvgToPngByResvg(targetSvg: Buffer | string) {
   const resvg = new Resvg(targetSvg, {});
@@ -47,13 +48,13 @@ export async function GET(req: Request) {
           }}
         >
           <div style={{ display: 'flex', position: 'relative' }}>
-            <img
+            <Image
               src="https://eagdqfebxhcyrcckqfho.supabase.co/storage/v1/object/public/polaroid-image/frame.jpg"
               alt="폴라로이드"
               style={{ height: '516px', width: '324px' }}
             />
           </div>
-          <img
+          <Image
             src={uploadedImageUrl}
             alt="이미지"
             style={{
