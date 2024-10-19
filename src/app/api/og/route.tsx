@@ -1,15 +1,9 @@
-import satori from 'satori';
+import { ImageResponse } from 'next/og';
+// App router includes @vercel/og.
+// No need to install it.
+import Image from 'next/image';
 import fs from 'fs';
 import path from 'path';
-import { NextResponse } from 'next/server';
-import { Resvg } from '@resvg/resvg-js';
-import Image from 'next/image';
-
-export function convertSvgToPngByResvg(targetSvg: Buffer | string) {
-  const resvg = new Resvg(targetSvg, {});
-  const pngData = resvg.render();
-  return pngData.asPng();
-}
 
 // 폰트 로드
 const pretendardFontBuffer = fs.readFileSync(
@@ -21,14 +15,20 @@ const timeFontBuffer = fs.readFileSync(
 );
 
 export async function GET(req: Request) {
+  // query
   const { searchParams } = new URL(req.url);
+  console.log(
+    'searchParams.date, text, uploadedUrl',
+    searchParams.get('date'),
+    searchParams.get('text'),
+    searchParams.get('uploadedImageUrl')
+  );
   const date = searchParams.get('date') || '';
   const text = searchParams.get('text') || '';
   const uploadedImageUrl = searchParams.get('uploadedImageUrl') || '';
 
-  try {
-    // Satori로 SVG 생성
-    const svg = await satori(
+  return new ImageResponse(
+    (
       <div
         style={{
           display: 'flex',
@@ -105,38 +105,25 @@ export async function GET(req: Request) {
             </div>
           </div>
         </div>
-      </div>,
-      {
-        width: 400,
-        height: 500, // 적절한 높이로 설정
-        fonts: [
-          {
-            style: 'normal',
-            name: 'pretendard',
-            data: pretendardFontBuffer,
-            weight: 600,
-          },
-          {
-            style: 'normal',
-            name: 'timeFont',
-            data: timeFontBuffer,
-            weight: 600,
-          },
-        ],
-      }
-    );
-
-    const pngBuffer = convertSvgToPngByResvg(svg);
-
-    // 성공적으로 SVG를 생성한 후 반환
-    return new NextResponse(pngBuffer, {
-      status: 200,
-      headers: {
-        'Content-Type': 'image/png',
-      },
-    });
-  } catch (error) {
-    console.error('SVG 생성 오류:', error);
-    return new NextResponse('SVG 생성 오류', { status: 500 });
-  }
+      </div>
+    ),
+    {
+      width: 400,
+      height: 500, // 적절한 높이로 설정
+      fonts: [
+        {
+          style: 'normal',
+          name: 'pretendard',
+          data: pretendardFontBuffer,
+          weight: 600,
+        },
+        {
+          style: 'normal',
+          name: 'timeFont',
+          data: timeFontBuffer,
+          weight: 600,
+        },
+      ],
+    }
+  );
 }
