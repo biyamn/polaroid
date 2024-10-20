@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 export default function Page() {
   const date = '2024-02-02';
   const text =
@@ -10,7 +8,7 @@ export default function Page() {
     <div>
       <img
         src={`http://localhost:3000/api/og?date=${date}&text=${text}&uploadedImageUrl=${uploadedImageUrl}`}
-        alt="Generated PNG"
+        alt="Generated PNG by @vercel/og"
       />
     </div>
   );
