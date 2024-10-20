@@ -20,7 +20,7 @@ export default function Page() {
   return (
     <div>
       {/* API로부터 받은 이미지(SVG)를 렌더링 */}
-      {imgSrc && <img src={imgSrc} alt="Generated SVG" />}
+      {imgSrc && <img src={imgSrc} alt="Generated PNG" />}
     </div>
   );
 }

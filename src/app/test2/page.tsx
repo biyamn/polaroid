@@ -10,7 +10,7 @@ export default function Page() {
     <div>
       <img
         src={`http://localhost:3000/api/og?date=${date}&text=${text}&uploadedImageUrl=${uploadedImageUrl}`}
-        alt="Generated SVG"
+        alt="Generated PNG"
       />
     </div>
   );
