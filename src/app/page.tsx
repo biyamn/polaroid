@@ -23,8 +23,6 @@ export default function Home() {
           uploadImage={uploadImage}
           elementRef={elementRef}
           text={text}
-          uploadedImageUrl={uploadedImageUrl}
-          setUploadedImageUrl={setUploadedImageUrl}
           date={date}
         />
       ) : (
