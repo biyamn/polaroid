@@ -1,5 +1,4 @@
 import localFont from 'next/font/local';
-import { useState } from 'react';
 
 const timeFont = localFont({
   src: '../fonts/time.ttf',
