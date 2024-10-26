@@ -65,6 +65,8 @@ const PrintAndEditBar = ({
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+
+    console.log('`/api/generateSvg?${query}`', `/api/generateSvg?${query}`);
   };
 
   return (

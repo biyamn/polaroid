@@ -1,8 +1,15 @@
+import localFont from 'next/font/local';
+
 type DescriptionFormProps = {
   isEditing: boolean;
   text: string;
   setText: (text: string) => void;
 };
+
+const descriptionFont = localFont({
+  src: '../fonts/NanumGimYuICe.ttf',
+  display: 'swap',
+});
 
 const DescriptionForm = ({
   isEditing,
@@ -13,7 +20,7 @@ const DescriptionForm = ({
   return (
     <div className="w-full relative -top-16">
       <textarea
-        className="w-full px-5 py-1 z-50 bg-transparent resize-none text-[15px] relative text-gray-900"
+        className={`${descriptionFont.className} w-full px-5 py-1 z-50 bg-transparent resize-none text-[15px] relative text-gray-800 text-xl`}
         rows={2}
         placeholder="어떤 기념할 일이 있었나요?"
         disabled={!isEditing}
@@ -22,7 +29,7 @@ const DescriptionForm = ({
         maxLength={maxLength}
       />
       {isEditing && (
-        <div className="absolute bottom-0.5 right-2 text-xs text-gray-500">
+        <div className="absolute bottom-0.5 right-2 text-xs text-gray-600">
           {text.length}/{maxLength}
         </div>
       )}
