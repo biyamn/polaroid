@@ -14,6 +14,7 @@ export default function Home() {
   const elementRef = useRef<HTMLDivElement>(null);
   const [date, setDate] = useState(new Date());
 
+  console.log('uploadedImageUrl', uploadedImageUrl);
   return (
     <div className="h-dvh bg-yellow-50 p-6 pt-16 overflow-y-hidden">
       {!isEditing ? (
@@ -23,6 +24,7 @@ export default function Home() {
           uploadImage={uploadImage}
           elementRef={elementRef}
           text={text}
+          uploadedImageUrl={uploadedImageUrl}
           setUploadedImageUrl={setUploadedImageUrl}
           date={date}
         />

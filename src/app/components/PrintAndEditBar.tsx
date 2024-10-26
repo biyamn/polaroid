@@ -9,6 +9,7 @@ type PrintAndEditBarProps = {
   elementRef: React.RefObject<HTMLDivElement>;
   text: string;
   date: Date;
+  uploadedImageUrl: string;
   setUploadedImageUrl: (url: string) => void;
 };
 
@@ -18,6 +19,7 @@ const PrintAndEditBar = ({
   uploadImage,
   date,
   text,
+  uploadedImageUrl,
   setUploadedImageUrl,
 }: PrintAndEditBarProps) => {
   const handleClickEdit = () => {
@@ -26,29 +28,7 @@ const PrintAndEditBar = ({
 
   const [imgSrc, setImgSrc] = useState('');
 
-  useEffect(() => {
-    // 쿼리 파라미터 생성
-    const query = new URLSearchParams({
-      date: date.toISOString().split('T')[0],
-      text: text,
-      uploadedImageUrl:
-        'https://eagdqfebxhcyrcckqfho.supabase.co/storage/v1/object/public/polaroid-image/2e320958-f6cd-4c90-949d-a5d1e0cfc577',
-    }).toString();
-
-    // img src를 API 경로로 설정
-    setImgSrc(`/api/generateSvg?${query}`);
-  }, []);
-
   const handleDownloadImage = async () => {
-    // 이미지를 저장
-    // 가상의 앵커(a) 태그를 생성하여 클릭 이벤트를 트리거
-    const link = document.createElement('a');
-    link.href = imgSrc;
-    link.download = 'generated-image.png';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
     // Supabase storage에 이미지 파일 업로드
     const { data, error } = await supabase.storage
       .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET as string)
@@ -79,6 +59,24 @@ const PrintAndEditBar = ({
       console.error('DB insert error:', dbError);
       return;
     }
+
+    const query = new URLSearchParams({
+      date: date.toISOString().split('T')[0],
+      text: text,
+      uploadedImageUrl: uploadedImageUrl,
+    }).toString();
+
+    // img src를 API 경로로 설정
+    setImgSrc(`/api/generateSvg?${query}`);
+
+    // 이미지를 저장
+    // 가상의 앵커(a) 태그를 생성하여 클릭 이벤트를 트리거
+    const link = document.createElement('a');
+    link.href = imgSrc;
+    link.download = 'generated-image.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
