@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { supabase } from '@/supabase/supabaseClient';
-import { useState } from 'react';
 
 type PrintAndEditBarProps = {
   setIsEditing: (isEditing: boolean | ((prev: boolean) => boolean)) => void;
@@ -9,8 +8,6 @@ type PrintAndEditBarProps = {
   elementRef: React.RefObject<HTMLDivElement>;
   text: string;
   date: Date;
-  uploadedImageUrl: string;
-  setUploadedImageUrl: (url: string) => void;
 };
 
 const PrintAndEditBar = ({
@@ -19,14 +16,10 @@ const PrintAndEditBar = ({
   uploadImage,
   date,
   text,
-  uploadedImageUrl,
-  setUploadedImageUrl,
 }: PrintAndEditBarProps) => {
   const handleClickEdit = () => {
     setIsEditing((prev) => !prev);
   };
-
-  const [imgSrc, setImgSrc] = useState('');
 
   const handleDownloadImage = async () => {
     // Supabase storage에 이미지 파일 업로드
@@ -48,8 +41,6 @@ const PrintAndEditBar = ({
       .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET as string)
       .getPublicUrl(data.path);
 
-    setUploadedImageUrl(res.data.publicUrl); // 실제 이미지 URL로 교체
-
     // Supabase DB에 이미지 URL과 텍스트 저장
     const { error: dbError } = await supabase
       .from('polaroid-data')
@@ -63,18 +54,13 @@ const PrintAndEditBar = ({
     const query = new URLSearchParams({
       date: date.toISOString().split('T')[0],
       text: text,
-      uploadedImageUrl: uploadedImageUrl,
+      uploadedImageUrl: res.data.publicUrl,
     }).toString();
-
-    // img src를 API 경로로 설정
-    setImgSrc(`/api/generateSvg?${query}`);
 
     // 이미지를 저장
     // 가상의 앵커(a) 태그를 생성하여 클릭 이벤트를 트리거
-
-    console.log('a imgSrc: ', imgSrc);
     const link = document.createElement('a');
-    link.href = imgSrc;
+    link.href = `/api/generateSvg?${query}`;
     link.download = 'generated-image.png';
     document.body.appendChild(link);
     link.click();
