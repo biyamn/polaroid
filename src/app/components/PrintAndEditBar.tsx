@@ -30,7 +30,7 @@ const PrintAndEditBar = ({
     // 쿼리 파라미터 생성
     const query = new URLSearchParams({
       date: date.toISOString().split('T')[0],
-      text: '오늘은 불꽃축제에 다녀왔다ㅎㅎ 너무 예뻤다!! 친구와 함께 여의도에 갔다~',
+      text: text,
       uploadedImageUrl:
         'https://eagdqfebxhcyrcckqfho.supabase.co/storage/v1/object/public/polaroid-image/2e320958-f6cd-4c90-949d-a5d1e0cfc577',
     }).toString();
