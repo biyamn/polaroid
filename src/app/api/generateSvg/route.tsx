@@ -6,7 +6,7 @@ import { convertSvgToPngByResvg } from '@/app/utils/convertSvgToPngByResvg';
 
 // 폰트 로드
 const pretendardFontBuffer = fs.readFileSync(
-  path.join(process.cwd(), 'src', 'app', 'fonts', 'Pretendawoffrd-Regular.')
+  path.join(process.cwd(), 'src', 'app', 'fonts', 'Pretendawoffrd-Regular.woff')
 );
 
 const timeFontBuffer = fs.readFileSync(
