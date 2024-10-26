@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { supabase } from '@/supabase/supabaseClient';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 type PrintAndEditBarProps = {
   setIsEditing: (isEditing: boolean | ((prev: boolean) => boolean)) => void;
@@ -71,6 +71,8 @@ const PrintAndEditBar = ({
 
     // 이미지를 저장
     // 가상의 앵커(a) 태그를 생성하여 클릭 이벤트를 트리거
+
+    console.log('a imgSrc: ', imgSrc);
     const link = document.createElement('a');
     link.href = imgSrc;
     link.download = 'generated-image.png';
