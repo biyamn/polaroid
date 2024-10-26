@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { supabase } from '@/supabase/supabaseClient';
-import { toPng } from 'html-to-image';
+import { useEffect, useState } from 'react';
 
 type PrintAndEditBarProps = {
   setIsEditing: (isEditing: boolean | ((prev: boolean) => boolean)) => void;
@@ -8,6 +8,7 @@ type PrintAndEditBarProps = {
   uploadImage: File | null;
   elementRef: React.RefObject<HTMLDivElement>;
   text: string;
+  date: Date;
   setUploadedImageUrl: (url: string) => void;
 };
 
@@ -15,7 +16,7 @@ const PrintAndEditBar = ({
   setIsEditing,
   imageUuid,
   uploadImage,
-  elementRef,
+  date,
   text,
   setUploadedImageUrl,
 }: PrintAndEditBarProps) => {
@@ -23,35 +24,30 @@ const PrintAndEditBar = ({
     setIsEditing((prev) => !prev);
   };
 
+  const [imgSrc, setImgSrc] = useState('');
+
+  useEffect(() => {
+    // 쿼리 파라미터 생성
+    const query = new URLSearchParams({
+      date: date.toISOString().split('T')[0],
+      text: '오늘은 불꽃축제에 다녀왔다ㅎㅎ 너무 예뻤다!! 친구와 함께 여의도에 갔다~',
+      uploadedImageUrl:
+        'https://eagdqfebxhcyrcckqfho.supabase.co/storage/v1/object/public/polaroid-image/2e320958-f6cd-4c90-949d-a5d1e0cfc577',
+    }).toString();
+
+    // img src를 API 경로로 설정
+    setImgSrc(`/api/generateSvg?${query}`);
+  }, []);
+
   const handleDownloadImage = async () => {
-    // 리액트 컴포넌트를 이미지로 변환하여 다운로드
-    if (elementRef.current) {
-      // 이미지를 다운로드하기 전에 화면에 표시되는 이미지 크기 축소
-      elementRef.current.style.transform = 'scale(0.7)';
-      elementRef.current.style.transformOrigin = 'center';
-
-      // elementRef가 참조하는 DOM 요소가 존재하는지 확인
-      toPng(elementRef.current, { cacheBust: false }) // 해당 요소를 PNG로 변환
-        .then((dataUrl) => {
-          // 이미지 다운로드 이후 화면에 표시되는 이미지 크기 복원
-          elementRef.current!.style.transform = 'scale(1)';
-          // 변환이 완료되면, PNG 이미지의 Data URL을 반환
-          const link = document.createElement('a'); // 다운로드를 위한 <a> 태그 생성
-          link.download = '폴라로이드.png'; // 다운로드될 파일의 이름 설정
-          link.href = dataUrl; // <a> 태그의 href 속성에 변환된 이미지의 Data URL을 설정
-          link.click(); // 링크 클릭을 트리거하여 다운로드 시작
-        })
-        .catch((err) => {
-          // 변환 과정에서 에러가 발생한 경우 처리
-          console.log(err); // 에러를 콘솔에 출력
-        });
-    }
-
-    // 이미지와 텍스트가 없으면 종료
-    if (!text && !uploadImage) {
-      setIsEditing(false);
-      return;
-    }
+    // 이미지를 저장
+    // 가상의 앵커(a) 태그를 생성하여 클릭 이벤트를 트리거
+    const link = document.createElement('a');
+    link.href = imgSrc;
+    link.download = 'generated-image.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 
     // Supabase storage에 이미지 파일 업로드
     const { data, error } = await supabase.storage

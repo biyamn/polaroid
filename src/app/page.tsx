@@ -12,6 +12,7 @@ export default function Home() {
   const [imageUuid, setImageUuid] = useState<string>('');
   const [uploadImage, setUploadImage] = useState<File | null>(null);
   const elementRef = useRef<HTMLDivElement>(null);
+  const [date, setDate] = useState(new Date());
 
   return (
     <div className="h-dvh bg-yellow-50 p-6 pt-16 overflow-y-hidden">
@@ -23,6 +24,7 @@ export default function Home() {
           elementRef={elementRef}
           text={text}
           setUploadedImageUrl={setUploadedImageUrl}
+          date={date}
         />
       ) : (
         <RemoveAndConfirmBar
@@ -41,6 +43,8 @@ export default function Home() {
         isEditing={isEditing}
         text={text}
         setText={setText}
+        date={date}
+        setDate={setDate}
       />
     </div>
   );

@@ -8,10 +8,11 @@ const timeFont = localFont({
 
 type DateFormProps = {
   isEditing: boolean;
+  date: Date;
+  setDate: (date: Date) => void;
 };
 
-const DateForm = ({ isEditing }: DateFormProps) => {
-  const [date, setDate] = useState(new Date());
+const DateForm = ({ isEditing, date, setDate }: DateFormProps) => {
   return (
     <div className={`${timeFont.className} absolute bottom-36 right-10`}>
       <input

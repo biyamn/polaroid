@@ -12,6 +12,8 @@ type PolaroidProps = {
   isEditing: boolean;
   text: string;
   setText: (text: string) => void;
+  date: Date;
+  setDate: (date: Date) => void;
 };
 
 const Polaroid = ({
@@ -22,6 +24,8 @@ const Polaroid = ({
   elementRef,
   isEditing,
   text,
+  date,
+  setDate,
   setText,
 }: PolaroidProps) => {
   const handleSaveLocalImage = async (
@@ -79,7 +83,7 @@ const Polaroid = ({
             <Image src="/upload.png" alt="업로드" height={40} width={40} />
           </label>
         )}
-        <DateForm isEditing={isEditing} />
+        <DateForm isEditing={isEditing} date={date} setDate={setDate} />
         <DescriptionForm isEditing={isEditing} text={text} setText={setText} />
       </div>
     </div>
