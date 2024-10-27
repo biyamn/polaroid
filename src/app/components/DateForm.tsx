@@ -13,13 +13,13 @@ type DateFormProps = {
 
 const DateForm = ({ isEditing, date, setDate }: DateFormProps) => {
   return (
-    <div className={`${timeFont.className} absolute bottom-36 right-10`}>
+    <div className={`${timeFont.className} absolute bottom-40 right-10`}>
       <input
         type="date"
         value={date.toISOString().split('T')[0]}
         onChange={(e) => setDate(new Date(e.target.value))}
         disabled={!isEditing}
-        className="w-[260px] bg-transparent text-right text-sm absolute bottom-5 -right-4 text-yellow-400"
+        className="w-[260px] bg-transparent text-right text-sm absolute bottom-3 -right-4 text-yellow-400"
       />
     </div>
   );

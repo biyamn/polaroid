@@ -5,8 +5,8 @@ import { NextResponse } from 'next/server';
 import { convertSvgToPngByResvg } from '@/app/utils/convertSvgToPngByResvg';
 
 // 폰트 로드
-const pretendardFontBuffer = fs.readFileSync(
-  path.join(process.cwd(), 'src', 'app', 'fonts', 'Pretendard-Regular.woff')
+const nanumBuffer = fs.readFileSync(
+  path.join(process.cwd(), 'src', 'app', 'fonts', 'NanumGimYuICe.ttf')
 );
 
 const timeFontBuffer = fs.readFileSync(
@@ -44,7 +44,7 @@ export async function GET(req: Request) {
             <img
               src="https://eagdqfebxhcyrcckqfho.supabase.co/storage/v1/object/public/polaroid-image/frame.jpg"
               alt="폴라로이드"
-              style={{ height: '516px', width: '324px' }}
+              style={{ height: '1032px', width: '648px' }}
             />
           </div>
           <img
@@ -54,18 +54,19 @@ export async function GET(req: Request) {
               display: 'flex',
               objectFit: 'contain',
               position: 'absolute',
-              top: '43px',
-              left: '54px',
-              height: '382px',
-              width: '288px',
+              top: '86px',
+              left: '33px',
+              height: '764px',
+              width: '576px',
             }}
           />
           <div
             style={{
               display: 'flex',
               position: 'absolute',
-              bottom: '154px',
-              right: '90px',
+              fontSize: '30px',
+              bottom: '210px',
+              right: '80px',
               fontFamily: 'timeFont',
               color: '#facc15',
             }}
@@ -76,9 +77,10 @@ export async function GET(req: Request) {
             style={{
               display: 'flex',
               width: '100%',
-              position: 'relative',
-              bottom: '70px',
-              right: '-50px',
+              maxWidth: '570px',
+              position: 'absolute',
+              bottom: '30px',
+              left: '35px',
             }}
           >
             <div
@@ -89,9 +91,9 @@ export async function GET(req: Request) {
                 zIndex: 50,
                 backgroundColor: 'transparent',
                 resize: 'none',
-                fontSize: '15px',
-                color: '#1F2937', // text-gray-900
-                maxWidth: '300px',
+                fontSize: '40px',
+                color: '#1f2937',
+                fontFamily: 'nanumFont',
               }}
             >
               {text}
@@ -100,13 +102,13 @@ export async function GET(req: Request) {
         </div>
       </div>,
       {
-        width: 400,
-        height: 500, // 적절한 높이로 설정
+        width: 1000,
+        height: 1400, // 적절한 높이로 설정
         fonts: [
           {
             style: 'normal',
-            name: 'pretendard',
-            data: pretendardFontBuffer,
+            name: 'nanum',
+            data: nanumBuffer,
             weight: 600,
           },
           {

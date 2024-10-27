@@ -20,7 +20,7 @@ const DescriptionForm = ({
   return (
     <div className="w-full relative -top-16">
       <textarea
-        className={`${descriptionFont.className} w-full px-5 py-1 z-50 bg-transparent resize-none text-[15px] relative text-gray-800 text-xl`}
+        className={`${descriptionFont.className} w-full px-5 z-50 bg-transparent resize-none text-xl relative text-gray-800`}
         rows={2}
         placeholder="어떤 기념할 일이 있었나요?"
         disabled={!isEditing}
@@ -29,7 +29,7 @@ const DescriptionForm = ({
         maxLength={maxLength}
       />
       {isEditing && (
-        <div className="absolute bottom-0.5 right-2 text-xs text-gray-600">
+        <div className="absolute bottom-3 right-2 text-xs text-gray-600">
           {text.length}/{maxLength}
         </div>
       )}
