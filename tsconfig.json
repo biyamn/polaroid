@@ -26,7 +26,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/api/generateSvg.tsㅌ"
+    "src/app/api/generateSvg.ts",
+    "src/app/api/og.ts"
   ],
   "exclude": ["node_modules"]
 }
