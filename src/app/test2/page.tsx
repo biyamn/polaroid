@@ -3,7 +3,7 @@ export default function Page() {
   const text =
     '오늘은 불꽃축제에 다녀왔다ㅎㅎ 너무 예뻤다!! 친구와 함께 여의도에 갔다~';
   const uploadedImageUrl =
-    'https://eagdqfebxhcyrcckqfho.supabase.co/storage/v1/object/public/polaroid-image/f5922fee-206a-4e65-a5fa-620483d1f284';
+    'https://eagdqfebxhcyrcckqfho.supabase.co/storage/v1/object/public/polaroid-image/ab57d3f2-1acb-4c34-98ef-ed377b2e70df';
   return (
     <div>
       <img

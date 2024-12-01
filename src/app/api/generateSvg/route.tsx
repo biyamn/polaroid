@@ -13,6 +13,8 @@ const timeFontBuffer = fs.readFileSync(
   path.join(process.cwd(), 'src', 'app', 'fonts', 'time.ttf')
 );
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const date = searchParams.get('date') || '';
@@ -29,6 +31,7 @@ export async function GET(req: Request) {
           alignItems: 'center',
           position: 'relative',
           height: '100vh',
+          width: '100vw',
         }}
       >
         <div
@@ -42,12 +45,16 @@ export async function GET(req: Request) {
         >
           <div style={{ display: 'flex', position: 'relative' }}>
             <img
-              src="https://eagdqfebxhcyrcckqfho.supabase.co/storage/v1/object/public/polaroid-image/frame.jpg"
+              src={`${baseUrl}/frame.jpg`}
               alt="폴라로이드"
+              height="1032"
+              width="648"
               style={{ height: '1032px', width: '648px' }}
             />
           </div>
           <img
+            height="764"
+            width="576"
             src={uploadedImageUrl}
             alt="이미지"
             style={{
@@ -122,7 +129,7 @@ export async function GET(req: Request) {
     );
 
     const pngBuffer = convertSvgToPngByResvg(svg);
-
+    console.log('pngBuffer: ', pngBuffer);
     // 성공적으로 SVG를 생성한 후 반환
     return new NextResponse(pngBuffer, {
       status: 200,
