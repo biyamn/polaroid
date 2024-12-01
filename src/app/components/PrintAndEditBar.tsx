@@ -1,7 +1,7 @@
-import Image from 'next/image';
-import { supabase } from '@/supabase/supabaseClient';
-import { use, useEffect, useState } from 'react';
-import Progress from '@/app/components/Progress';
+import Image from "next/image";
+import { supabase } from "@/supabase/supabaseClient";
+import { useState } from "react";
+import Progress from "@/app/components/Progress";
 
 type PrintAndEditBarProps = {
   setIsEditing: (isEditing: boolean | ((prev: boolean) => boolean)) => void;
@@ -33,12 +33,12 @@ const PrintAndEditBar = ({
         .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET as string)
         .upload(imageUuid, uploadImage as File, {
           headers: {
-            'x-upsert': 'true', // optionally set upsert to true to overwrite existing files
+            "x-upsert": "true", // optionally set upsert to true to overwrite existing files
           },
         });
 
       if (error) {
-        console.error('Upload error:', error);
+        console.error("Upload error:", error);
         return;
       }
 
@@ -49,16 +49,16 @@ const PrintAndEditBar = ({
 
       // Supabase DB에 이미지 URL과 텍스트 저장
       const { error: dbError } = await supabase
-        .from('polaroid-data')
+        .from("polaroid-data")
         .insert([{ image_url: res.data.publicUrl, description: text }]);
 
       if (dbError) {
-        console.error('DB insert error:', dbError);
+        console.error("DB insert error:", dbError);
         return;
       }
 
       const query = new URLSearchParams({
-        date: date.toISOString().split('T')[0],
+        date: date.toISOString().split("T")[0],
         text: text,
         uploadedImageUrl: res.data.publicUrl,
       }).toString();
@@ -66,16 +66,16 @@ const PrintAndEditBar = ({
       // 이미지를 저장
       // 가상의 앵커(a) 태그를 생성하여 클릭 이벤트를 트리거
 
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = `/api/generateSvg?${query}`;
-      link.download = 'generated-image.png';
+      link.download = "generated-image.png";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
 
-      console.log('link.href: ', link.href);
+      console.log("link.href: ", link.href);
     } catch (error) {
-      console.error('Error downloading image:', error);
+      console.error("Error downloading image:", error);
     } finally {
       setIsLoading(false);
     }
