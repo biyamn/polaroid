@@ -80,7 +80,9 @@ const PrintAndEditBar = ({
     } catch (error) {
       console.error('Error downloading image:', error);
     } finally {
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
     }
   };
 
