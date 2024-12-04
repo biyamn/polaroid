@@ -29,6 +29,7 @@ const PrintAndEditBar = ({
 
   const handleDownloadImage = async () => {
     setIsLoading(true);
+
     try {
       // Supabase storage에 이미지 파일 업로드
       const { data, error } = await supabase.storage
@@ -94,7 +95,7 @@ const PrintAndEditBar = ({
         className="cursor-pointer"
         onClick={handleClickEdit}
       />
-      {(uploadedImageUrl || text) && (
+      {uploadedImageUrl && text ? (
         <Image
           src="/print.png"
           alt="인쇄"
@@ -103,6 +104,8 @@ const PrintAndEditBar = ({
           className="cursor-pointer downloadButton"
           onClick={handleDownloadImage}
         />
+      ) : (
+        <>사진과 글 모두가 있어야 인쇄할 수 있어요!</>
       )}
     </div>
   );
