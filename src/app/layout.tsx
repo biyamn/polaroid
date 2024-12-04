@@ -3,8 +3,8 @@ import './globals.css';
 
 import localFont from 'next/font/local';
 
-const neoFont = localFont({
-  src: './fonts/Pretendard-Regular.woff',
+const pencilFont = localFont({
+  src: './fonts/Hakgyoansim Geurimilgi TTF R.ttf',
   display: 'swap',
 });
 
@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className="h-full">
-      <body className={`mx-auto w-96 h-full ${neoFont.className}`}>
+      <body className={`mx-auto w-96 h-full ${pencilFont.className}`}>
         {children}
       </body>
     </html>

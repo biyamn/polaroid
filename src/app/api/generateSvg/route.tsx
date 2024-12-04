@@ -6,7 +6,13 @@ import { convertSvgToPngByResvg } from '@/app/utils/convertSvgToPngByResvg';
 
 // 폰트 로드
 const nanumBuffer = fs.readFileSync(
-  path.join(process.cwd(), 'src', 'app', 'fonts', 'NanumGimYuICe.ttf')
+  path.join(
+    process.cwd(),
+    'src',
+    'app',
+    'fonts',
+    'Hakgyoansim Geurimilgi TTF R.ttf'
+  )
 );
 
 const timeFontBuffer = fs.readFileSync(
@@ -98,8 +104,7 @@ export async function GET(req: Request) {
                 zIndex: 50,
                 backgroundColor: 'transparent',
                 resize: 'none',
-                fontSize: '40px',
-                color: '#1f2937',
+                fontSize: '34px',
                 fontFamily: 'nanumFont',
               }}
             >
