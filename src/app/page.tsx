@@ -22,6 +22,7 @@ export default function Home() {
           imageUuid={imageUuid}
           uploadImage={uploadImage}
           elementRef={elementRef}
+          uploadedImageUrl={uploadedImageUrl}
           text={text}
           date={date}
         />

@@ -68,20 +68,22 @@ const Polaroid = ({
             </div>
           </div>
         ) : (
-          <label
-            htmlFor="file"
-            className="absolute top-10 left-4 h-[382px] w-[288px] flex items-center justify-center cursor-pointer bg-white"
-          >
-            <input
-              type="file"
-              id="file"
-              name="file"
-              hidden
-              onChange={handleSaveLocalImage}
-              disabled={!isEditing}
-            />
-            <Image src="/upload.png" alt="업로드" height={40} width={40} />
-          </label>
+          isEditing && (
+            <label
+              htmlFor="file"
+              className="absolute top-10 left-4 h-[382px] w-[288px] flex items-center justify-center cursor-pointer bg-white"
+            >
+              <input
+                type="file"
+                id="file"
+                name="file"
+                hidden
+                onChange={handleSaveLocalImage}
+                disabled={!isEditing}
+              />
+              <Image src="/upload.png" alt="업로드" height={40} width={40} />
+            </label>
+          )
         )}
         <DateForm isEditing={isEditing} date={date} setDate={setDate} />
         <DescriptionForm isEditing={isEditing} text={text} setText={setText} />
