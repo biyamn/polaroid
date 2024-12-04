@@ -5,8 +5,14 @@ import fs from 'fs';
 import path from 'path';
 
 // 폰트 로드
-const pretendardFontBuffer = fs.readFileSync(
-  path.join(process.cwd(), 'src', 'app', 'fonts', 'Pretendard-Regular.woff')
+const pencilFontBuffer = fs.readFileSync(
+  path.join(
+    process.cwd(),
+    'src',
+    'app',
+    'fonts',
+    'Hakgyoansim Geurimilgi TTF R.ttf'
+  )
 );
 
 const timeFontBuffer = fs.readFileSync(
@@ -112,8 +118,8 @@ export async function GET(req: Request) {
       fonts: [
         {
           style: 'normal',
-          name: 'pretendard',
-          data: pretendardFontBuffer,
+          name: 'pencilFont',
+          data: pencilFontBuffer,
           weight: 600,
         },
         {
