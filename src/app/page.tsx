@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import PrintAndEditBar from '@/app/components/PrintAndEditBar';
 import RemoveAndConfirmBar from '@/app/components/RemoveAndConfirmBar';
 import Polaroid from '@/app/components/Polaroid';
+import LoginBar from './components/LoginBar';
 
 export default function Home() {
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -16,6 +17,7 @@ export default function Home() {
 
   return (
     <div className="h-dvh bg-yellow-50 p-6 pt-16 overflow-y-hidden">
+      <LoginBar />
       {!isEditing ? (
         <PrintAndEditBar
           setIsEditing={setIsEditing}
