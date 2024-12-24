@@ -70,7 +70,7 @@ const PrintAndEditBar = ({
       // 가상의 앵커(a) 태그를 생성하여 클릭 이벤트를 트리거
 
       const link = document.createElement('a');
-      link.href = `/api/generateSvg?${query}`;
+      link.href = `/api/satori?${query}`;
       link.download = 'generated-image.png';
       document.body.appendChild(link);
       link.click();
