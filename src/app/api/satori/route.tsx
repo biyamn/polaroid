@@ -101,7 +101,7 @@ export async function GET(req: Request) {
                 display: 'flex',
                 width: '100%',
                 padding: '8px',
-                zIndex: 50,
+                zIndex: 40,
                 backgroundColor: 'transparent',
                 resize: 'none',
                 fontSize: '34px',
