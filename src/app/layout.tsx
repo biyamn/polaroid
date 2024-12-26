@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="ko" className="h-full">
       <body className={`mx-auto w-96 h-full ${pencilFont.className}`}>
         <div className="h-dvh flex flex-col justify-between bg-yellow-50">
-          <div className=" p-6 overflow-y-hidden">
+          <div className=" p-6 pt-8 overflow-y-hidden">
             <LoginBar />
             {children}
           </div>
