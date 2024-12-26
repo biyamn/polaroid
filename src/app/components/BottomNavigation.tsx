@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { GoHome } from 'react-icons/go';
+import { GrHomeRounded } from 'react-icons/gr';
 import { GrGallery } from 'react-icons/gr';
 
 type NavItemProps = {
@@ -23,7 +23,7 @@ const getNavItemStatus = (pathname: string, href: string) => {
 };
 
 const NAV_ITEMS = [
-  { href: '/home', Icon: GoHome, text: '홈' },
+  { href: '/home', Icon: GrHomeRounded, text: '홈' },
   { href: '/gallery', Icon: GrGallery, text: '갤러리' },
 ];
 
@@ -34,7 +34,7 @@ const NavItem = ({ href, Icon, text }: NavItemProps) => {
   return (
     <Link href={href}>
       <div className="flex flex-col items-center cursor-pointer">
-        <Icon color={color} style={{ width: '45px', height: '45px' }} />
+        <Icon color={color} style={{ width: '35px', height: '35px' }} />
         <div className={`text-[${color}]`}>{text}</div>
       </div>
     </Link>
