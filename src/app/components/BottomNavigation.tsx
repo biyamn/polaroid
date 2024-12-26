@@ -7,7 +7,7 @@ import { GrGallery } from 'react-icons/gr';
 
 type NavItemProps = {
   href: string;
-  Icon: any;
+  Icon: typeof GrHomeRounded | typeof GrGallery;
   text: string;
 };
 
