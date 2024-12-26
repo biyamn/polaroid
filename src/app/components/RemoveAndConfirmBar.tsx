@@ -25,20 +25,20 @@ const RemoveAndConfirmBar = ({
   };
 
   return (
-    <div className="flex justify-between px-6 py-4">
+    <div className="flex justify-between px-6 py-2">
       <Image
         src="/trashcan.png"
         alt="삭제"
-        height={30}
-        width={30}
+        height={20}
+        width={20}
         className="cursor-pointer"
         onClick={handleDelete}
       />
       <Image
         src="/save.png"
         alt="저장"
-        height={30}
-        width={30}
+        height={20}
+        width={20}
         className="cursor-pointer"
         onClick={handleClickSave}
       />

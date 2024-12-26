@@ -87,13 +87,13 @@ const PrintAndEditBar = ({
   };
 
   return (
-    <div className="flex justify-between px-6 py-4">
+    <div className="flex justify-between px-6 py-2">
       {isLoading && <Progress />}
       <Image
         src="/pen.png"
         alt="수정"
-        height={30}
-        width={30}
+        height={20}
+        width={20}
         className="cursor-pointer"
         onClick={handleClickEdit}
       />
@@ -101,8 +101,8 @@ const PrintAndEditBar = ({
         <Image
           src="/print.png"
           alt="인쇄"
-          height={30}
-          width={30}
+          height={20}
+          width={20}
           className="cursor-pointer downloadButton"
           onClick={handleDownloadImage}
         />

@@ -34,7 +34,7 @@ const NavItem = ({ href, Icon, text }: NavItemProps) => {
   return (
     <Link href={href}>
       <div className="flex flex-col items-center cursor-pointer">
-        <Icon color={color} style={{ width: '35px', height: '35px' }} />
+        <Icon color={color} style={{ width: '25px', height: '25px' }} />
         <div className={`text-[${color}]`}>{text}</div>
       </div>
     </Link>
@@ -43,7 +43,7 @@ const NavItem = ({ href, Icon, text }: NavItemProps) => {
 
 const BottomNavigation = () => {
   return (
-    <div className="h-24 w-full mx-auto z-50 bg-yellow-100 flex justify-around items-center">
+    <div className="h-20 w-full mx-auto z-50 bg-yellow-100 flex justify-around items-center">
       {NAV_ITEMS.map(({ href, Icon, text }) => (
         <NavItem key={href} href={href} Icon={Icon} text={text} />
       ))}
