@@ -4,8 +4,6 @@ import { useRef, useState } from 'react';
 import PrintAndEditBar from '@/app/components/PrintAndEditBar';
 import RemoveAndConfirmBar from '@/app/components/RemoveAndConfirmBar';
 import Polaroid from '@/app/components/Polaroid';
-import LoginBar from './components/LoginBar';
-import BottomNavigation from './components/BottomNavigation';
 
 export default function Home() {
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -17,41 +15,37 @@ export default function Home() {
   const [date, setDate] = useState(new Date());
 
   return (
-    <div className="h-dvh flex flex-col">
-      <div className="bg-yellow-50 p-6 pt-8 overflow-y-hidden">
-        <LoginBar />
-        {!isEditing ? (
-          <PrintAndEditBar
-            setIsEditing={setIsEditing}
-            imageUuid={imageUuid}
-            uploadImage={uploadImage}
-            elementRef={elementRef}
-            uploadedImageUrl={uploadedImageUrl}
-            text={text}
-            date={date}
-          />
-        ) : (
-          <RemoveAndConfirmBar
-            setIsEditing={setIsEditing}
-            setUploadedImageUrl={setUploadedImageUrl}
-            setUploadImage={setUploadImage}
-            setText={setText}
-          />
-        )}
-        <Polaroid
+    <>
+      {!isEditing ? (
+        <PrintAndEditBar
+          setIsEditing={setIsEditing}
+          imageUuid={imageUuid}
+          uploadImage={uploadImage}
+          elementRef={elementRef}
           uploadedImageUrl={uploadedImageUrl}
-          setImageUuid={setImageUuid}
+          text={text}
+          date={date}
+        />
+      ) : (
+        <RemoveAndConfirmBar
+          setIsEditing={setIsEditing}
           setUploadedImageUrl={setUploadedImageUrl}
           setUploadImage={setUploadImage}
-          elementRef={elementRef}
-          isEditing={isEditing}
-          text={text}
           setText={setText}
-          date={date}
-          setDate={setDate}
         />
-      </div>
-      <BottomNavigation />
-    </div>
+      )}
+      <Polaroid
+        uploadedImageUrl={uploadedImageUrl}
+        setImageUuid={setImageUuid}
+        setUploadedImageUrl={setUploadedImageUrl}
+        setUploadImage={setUploadImage}
+        elementRef={elementRef}
+        isEditing={isEditing}
+        text={text}
+        setText={setText}
+        date={date}
+        setDate={setDate}
+      />
+    </>
   );
 }

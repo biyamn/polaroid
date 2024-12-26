@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
-
+import LoginBar from './components/LoginBar';
+import BottomNavigation from './components/BottomNavigation';
 import localFont from 'next/font/local';
 
 const pencilFont = localFont({
@@ -21,7 +22,13 @@ export default function RootLayout({
   return (
     <html lang="ko" className="h-full">
       <body className={`mx-auto w-96 h-full ${pencilFont.className}`}>
-        {children}
+        <div className="h-dvh flex flex-col justify-between bg-yellow-50">
+          <div className=" p-6 pt-8 overflow-y-hidden">
+            <LoginBar />
+            {children}
+          </div>
+          <BottomNavigation />
+        </div>
       </body>
     </html>
   );
