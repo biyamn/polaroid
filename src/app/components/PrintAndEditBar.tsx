@@ -87,7 +87,7 @@ const PrintAndEditBar = ({
   };
 
   return (
-    <div className="flex justify-between px-6 py-4">
+    <div className="flex justify-between px-6 py-1">
       {isLoading && <Progress />}
       <Image
         src="/pen.png"
