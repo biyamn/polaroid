@@ -29,16 +29,16 @@ const RemoveAndConfirmBar = ({
       <Image
         src="/trashcan.png"
         alt="삭제"
-        height={20}
-        width={20}
+        height={30}
+        width={30}
         className="cursor-pointer"
         onClick={handleDelete}
       />
       <Image
         src="/save.png"
         alt="저장"
-        height={20}
-        width={20}
+        height={30}
+        width={30}
         className="cursor-pointer"
         onClick={handleClickSave}
       />

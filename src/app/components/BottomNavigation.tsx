@@ -43,7 +43,7 @@ const NavItem = ({ href, Icon, text }: NavItemProps) => {
 
 const BottomNavigation = () => {
   return (
-    <div className="h-16 w-full mx-auto z-50 bg-yellow-100 flex justify-around items-center">
+    <div className="h-20 w-full mx-auto z-50 bg-yellow-100 flex justify-around items-center">
       {NAV_ITEMS.map(({ href, Icon, text }) => (
         <NavItem key={href} href={href} Icon={Icon} text={text} />
       ))}
