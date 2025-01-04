@@ -87,10 +87,10 @@ const PrintAndEditBar = ({
   };
 
   return (
-    <div className="flex justify-between px-6 py-2 items-center">
+    <div className="flex justify-between px-4 py-2 items-center">
       {isLoading && <Progress />}
       <div
-        className="flex flex-col cursor-pointer items-center"
+        className="flex gap-1 cursor-pointer items-center justify-between"
         onClick={handleClickEdit}
       >
         <Image src="/pen.png" alt="수정" height={25} width={25} />
@@ -102,7 +102,7 @@ const PrintAndEditBar = ({
       </div>
       {uploadedImageUrl && text ? (
         <div
-          className="flex flex-col cursor-pointer items-center"
+          className="flex gap-1 cursor-pointer items-center"
           onClick={handleDownloadImage}
         >
           <Image src="/print.png" alt="인쇄" height={25} width={25} />
