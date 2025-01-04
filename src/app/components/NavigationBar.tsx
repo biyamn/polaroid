@@ -4,7 +4,7 @@ import { GrGallery } from 'react-icons/gr';
 
 const NavigationBar = () => {
   return (
-    <div className="flex justify-between pb-4">
+    <div className="flex justify-between bg-orange-200 px-7 pt-4 pb-2">
       <Link href="/">
         <div className="flex flex-col items-center cursor-pointer">
           <GrHomeRounded style={{ width: '25px', height: '25px' }} />

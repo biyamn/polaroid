@@ -20,12 +20,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className="h-full">
-      <body className={`mx-auto w-96 h-full ${pencilFont.className}`}>
-        <div className="h-dvh flex flex-col justify-between bg-yellow-50">
-          <div className=" p-6 overflow-y-hidden">
-            <NavigationBar />
-            {children}
-          </div>
+      <body
+        className={`h-dvh mx-auto w-96 ${pencilFont.className} flex flex-col`}
+      >
+        <NavigationBar />
+        <div className="flex flex-col justify-between bg-yellow-50 h-full">
+          <div className="px-6 pb-6 pt-2 overflow-y-hidden">{children}</div>
         </div>
       </body>
     </html>
