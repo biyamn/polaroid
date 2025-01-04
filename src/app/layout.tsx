@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import LoginBar from './components/LoginBar';
-import BottomNavigation from './components/BottomNavigation';
+import NavigationBar from './components/NavigationBar';
 import localFont from 'next/font/local';
 
 const pencilFont = localFont({
@@ -24,10 +23,9 @@ export default function RootLayout({
       <body className={`mx-auto w-96 h-full ${pencilFont.className}`}>
         <div className="h-dvh flex flex-col justify-between bg-yellow-50">
           <div className=" p-6 overflow-y-hidden">
-            <LoginBar />
+            <NavigationBar />
             {children}
           </div>
-          <BottomNavigation />
         </div>
       </body>
     </html>
