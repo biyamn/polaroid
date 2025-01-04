@@ -87,27 +87,26 @@ const PrintAndEditBar = ({
   };
 
   return (
-    <div className="flex justify-between px-6 py-2">
+    <div className="flex justify-between px-6 py-2 items-center">
       {isLoading && <Progress />}
-      <Image
-        src="/pen.png"
-        alt="수정"
-        height={30}
-        width={30}
-        className="cursor-pointer"
-        onClick={handleClickEdit}
-      />
+      <div className="flex flex-col cursor-pointer" onClick={handleClickEdit}>
+        <Image src="/pen.png" alt="수정" height={25} width={25} />
+        {uploadedImageUrl === '' && text === '' ? (
+          <div className="text-sm">만들기</div>
+        ) : (
+          <div className="text-sm">수정하기</div>
+        )}
+      </div>
       {uploadedImageUrl && text ? (
-        <Image
-          src="/print.png"
-          alt="인쇄"
-          height={30}
-          width={30}
-          className="cursor-pointer downloadButton"
+        <div
+          className="flex flex-col cursor-pointer"
           onClick={handleDownloadImage}
-        />
+        >
+          <Image src="/print.png" alt="인쇄" height={25} width={25} />
+          <div className="text-sm">인쇄하기</div>
+        </div>
       ) : (
-        <>사진과 글 모두가 있어야 인쇄할 수 있어요!</>
+        <div className="text-sm">사진과 글 모두가 있어야 인쇄할 수 있어요!</div>
       )}
     </div>
   );
