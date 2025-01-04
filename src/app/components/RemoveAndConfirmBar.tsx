@@ -26,11 +26,17 @@ const RemoveAndConfirmBar = ({
 
   return (
     <div className="flex justify-between px-6 py-2">
-      <div className="cursor-pointer" onClick={handleDelete}>
+      <div
+        className="flex flex-col cursor-pointer items-center"
+        onClick={handleDelete}
+      >
         <Image src="/trashcan.png" alt="삭제" height={25} width={25} />
         <div className="text-sm">내용 비우기</div>
       </div>
-      <div className="cursor-pointer" onClick={handleClickSave}>
+      <div
+        className="flex flex-col cursor-pointer items-center"
+        onClick={handleClickSave}
+      >
         <Image src="/save.png" alt="저장" height={25} width={25} />
         <div className="text-sm">저장하기</div>
       </div>
