@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { GrHomeRounded } from 'react-icons/gr';
 import { GrGallery } from 'react-icons/gr';
-import NiceModal, { useModal } from '@ebay/nice-modal-react';
+import NiceModal from '@ebay/nice-modal-react';
 import LoginModal from '@/app/components/LoginModal';
 import { Button } from 'antd';
 
