@@ -5,7 +5,6 @@ import { GrHomeRounded } from 'react-icons/gr';
 import { GrGallery } from 'react-icons/gr';
 import NiceModal from '@ebay/nice-modal-react';
 import LoginModal from '@/app/components/LoginModal';
-import { Button } from 'antd';
 
 const NavigationBar = () => {
   const showLoginModal = () => {
@@ -28,11 +27,17 @@ const NavigationBar = () => {
             <div className="text-xs">갤러리</div>
           </div>
         </Link>
-        <Button onClick={showLoginModal} variant="solid" color="orange">
+        <button
+          onClick={showLoginModal}
+          className="
+          bg-amber-400 text-white px-2 rounded-md h-8
+          hover:bg-amber-500 transition-colors
+        "
+        >
           로그인
-        </Button>
+        </button>
       </div>
-      <LoginModal id="login-modal" name="Nate" />
+      <LoginModal id="login-modal" />
     </div>
   );
 };
