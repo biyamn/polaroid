@@ -93,7 +93,7 @@ const PrintAndEditBar = ({
         className="flex gap-1 cursor-pointer items-center justify-between"
         onClick={handleClickEdit}
       >
-        <Image src="/pen.png" alt="수정" height={25} width={25} />
+        <Image src="/pen.png" alt="수정" height={27} width={27} />
         {uploadedImageUrl === '' && text === '' ? (
           <div className="text-sm">만들기</div>
         ) : (
@@ -109,7 +109,7 @@ const PrintAndEditBar = ({
           <div className="text-sm">인쇄하기</div>
         </div>
       ) : (
-        <div className="text-sm">사진과 글 모두가 있어야 인쇄할 수 있어요!</div>
+        <div className="text-sm">사진/글 모두 있어야 저장할 수 있어요.</div>
       )}
     </div>
   );
