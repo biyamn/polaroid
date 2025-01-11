@@ -18,7 +18,7 @@ export default function LoginLayout({
       <body
         className={`h-dvh mx-auto w-96 ${pencilFont.className} flex flex-col`}
       >
-        <div className="pt-4">
+        <div className="pt-4 px-6">
           <Link href="/home">
             <Image
               src="/left-arrow.png"
