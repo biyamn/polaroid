@@ -1,12 +1,12 @@
 'use client';
 
 // import type { Metadata } from 'next';
-import './globals.css';
+import '../globals.css';
 import NavigationBar from '@/app/components/layout/NavigationBar';
 import localFont from 'next/font/local';
 
 const pencilFont = localFont({
-  src: './fonts/Hakgyoansim Geurimilgi TTF R.ttf',
+  src: '../fonts/Hakgyoansim Geurimilgi TTF R.ttf',
   display: 'swap',
 });
 
