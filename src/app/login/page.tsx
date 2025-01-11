@@ -1,10 +1,11 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Login() {
   return (
-    <div className="flex flex-col items-center h-screen  p-8">
+    <div className="flex flex-col items-center h-screen p-8">
       <div className="text-3xl py-10">Snap Diary</div>
-      <div className="flex flex-col w-full ">
+      <div className="flex flex-col w-full">
         <div className="relative">
           <input
             type="text"
@@ -60,7 +61,9 @@ export default function Login() {
       </div>
       <div className="flex gap-2">
         <div className="text-gray-500">처음이신가요?</div>
-        <div className="text-[#FFA33C] cursor-pointer">가입하기</div>
+        <Link href="/signup">
+          <div className="text-[#FFA33C] cursor-pointer">가입하기</div>
+        </Link>
       </div>
     </div>
   );
