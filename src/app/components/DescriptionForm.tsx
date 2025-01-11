@@ -20,7 +20,7 @@ const DescriptionForm = ({
   return (
     <div className="w-full relative -top-16">
       <textarea
-        className={`${descriptionFont.className} w-full px-5 z-50 bg-transparent resize-none text-md relative text-gray-800`}
+        className={`${descriptionFont.className} w-full px-5 z-20 bg-transparent resize-none text-md relative text-gray-800`}
         rows={2}
         placeholder="어떤 기념할 일이 있었나요?"
         disabled={!isEditing}

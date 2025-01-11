@@ -2,7 +2,7 @@ const Progress = () => {
   return (
     <div
       role="status"
-      className="absolute -translate-x-1/2 -translate-y-1/2 top-2/4 left-1/2 z-50"
+      className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 z-50"
     >
       <svg
         aria-hidden="true"
