@@ -6,7 +6,7 @@ import { GrGallery } from 'react-icons/gr';
 const NavigationBar = () => {
   return (
     <div className="flex justify-between bg-amber-200 px-7 pt-4 pb-2">
-      <Link href="/">
+      <Link href="/home">
         <div className="flex flex-col items-center cursor-pointer">
           <GrHomeRounded style={{ width: '25px', height: '25px' }} />
           <div className="text-xs">홈</div>
