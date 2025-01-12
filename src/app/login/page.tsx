@@ -32,7 +32,7 @@ export default function Login() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="이메일"
-            className="pl-10 w-full h-12 border border-gray-300 rounded-tr-md rounded-tl-md bg-white"
+            className="focus:border-[#FFA33C] focus:outline-none pl-10 w-full h-12 border border-gray-300 rounded-tr-md rounded-tl-md bg-white"
           />
           <Image
             className="absolute top-3 left-3"
@@ -48,7 +48,7 @@ export default function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="비밀번호"
-            className="pl-10 w-full h-12 border border-gray-300 rounded-br-md rounded-bl-md border-t-white"
+            className="focus:border-[#FFA33C]  focus:outline-none pl-10 w-full h-12 border border-gray-300 rounded-br-md rounded-bl-md border-t-white"
           />
           <Image
             className="absolute top-3 left-3"

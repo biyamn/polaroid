@@ -25,7 +25,7 @@ export default function Signup() {
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="pl-4 w-full h-12 border border-gray-300 rounded-md"
+            className="focus:border-[#FFA33C]  focus:outline-none pl-4 w-full h-12 border border-gray-300 rounded-md"
           />
         </div>
         <div>
@@ -35,7 +35,7 @@ export default function Signup() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="6글자 이상"
-            className="pl-4 w-full h-12 border border-gray-300 rounded-md"
+            className="focus:border-[#FFA33C]  focus:outline-none pl-4 w-full h-12 border border-gray-300 rounded-md"
           />
         </div>
         <div>
@@ -43,7 +43,7 @@ export default function Signup() {
           <input
             type="password"
             placeholder="6글자 이상"
-            className="pl-4 w-full h-12 border border-gray-300 rounded-md "
+            className="focus:border-[#FFA33C]  focus:outline-none pl-4 w-full h-12 border border-gray-300 rounded-md "
           />
         </div>
       </div>
