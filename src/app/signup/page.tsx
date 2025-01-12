@@ -10,7 +10,7 @@ export default function Signup() {
 
   const handleClickSignup = async () => {
     console.log('click!');
-    const { data, error } = await supabase.auth.signUp({
+    await supabase.auth.signUp({
       email: email,
       password: password,
     });
