@@ -2,13 +2,15 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '@/supabase/supabaseClient';
 import { useRouter } from 'next/navigation';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoginAvailable, setIsLoginAvailable] = useState(false);
+
   const router = useRouter();
 
   const handleClickLogin = async () => {
@@ -21,6 +23,16 @@ export default function Login() {
       router.push('/home');
     }
   };
+
+  useEffect(() => {
+    console.log('email: ', email);
+    console.log('password: ', password);
+    if (email.length > 0 && password.length > 0) {
+      setIsLoginAvailable(true);
+    } else {
+      setIsLoginAvailable(false);
+    }
+  }, [email, password]);
 
   return (
     <div className="flex flex-col items-center h-screen p-8">
@@ -61,12 +73,23 @@ export default function Login() {
       </div>
 
       <div className="w-full">
-        <button
-          onClick={handleClickLogin}
-          className="w-full h-12 rounded-md text-lg my-4 text-white bg-[#FFA33C]"
-        >
-          로그인
-        </button>
+        {isLoginAvailable ? (
+          <button
+            onClick={handleClickLogin}
+            className="w-full h-12 rounded-md text-lg my-4 text-white bg-[#FFA33C]"
+            disabled={false}
+          >
+            로그인
+          </button>
+        ) : (
+          <button
+            onClick={handleClickLogin}
+            className="w-full h-12 rounded-md text-lg my-4 text-white bg-[#c7c7c7]"
+            disabled={true}
+          >
+            로그인
+          </button>
+        )}
       </div>
       <div className="w-full relative my-2">
         <div className="w-full h-0 border border-gray-200"></div>
