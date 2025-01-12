@@ -17,7 +17,9 @@ export default function Login() {
       password: password,
     });
 
-    data.user && router.push('/home');
+    if (data.user) {
+      router.push('/home');
+    }
   };
 
   return (
