@@ -1,7 +1,25 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
+import { supabase } from '@/supabase/supabaseClient';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const router = useRouter();
+
+  const handleClickLogin = async () => {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
+
+    data.user && router.push('/home');
+  };
+
   return (
     <div className="flex flex-col items-center h-screen p-8">
       <div className="text-3xl py-10">Snap Diary</div>
@@ -9,6 +27,8 @@ export default function Login() {
         <div className="relative">
           <input
             type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="이메일"
             className="pl-10 w-full h-12 border border-gray-300 rounded-tr-md rounded-tl-md bg-white"
           />
@@ -23,6 +43,8 @@ export default function Login() {
         <div className="relative">
           <input
             type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="비밀번호"
             className="pl-10 w-full h-12 border border-gray-300 rounded-br-md rounded-bl-md border-t-white"
           />
@@ -37,7 +59,10 @@ export default function Login() {
       </div>
 
       <div className="w-full">
-        <button className="w-full h-12 rounded-md text-lg my-4 text-white bg-[#FFA33C]">
+        <button
+          onClick={handleClickLogin}
+          className="w-full h-12 rounded-md text-lg my-4 text-white bg-[#FFA33C]"
+        >
           로그인
         </button>
       </div>
