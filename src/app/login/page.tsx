@@ -6,33 +6,33 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/supabase/supabaseClient';
 import { useRouter } from 'next/navigation';
 
+type LoginErrorType = 'empty' | 'unMatch' | null;
+
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoginAvailable, setIsLoginAvailable] = useState(false);
+  const [loginError, setLoginError] = useState<LoginErrorType>(null);
 
   const router = useRouter();
 
   const handleClickLogin = async () => {
-    const { data } = await supabase.auth.signInWithPassword({
+    if (email.length === 0 || password.length === 0) {
+      setLoginError('empty');
+      return;
+    }
+
+    const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
     });
 
-    if (data.user) {
-      router.push('/home');
+    if (error) {
+      setLoginError('unMatch');
+      return;
     }
-  };
 
-  useEffect(() => {
-    console.log('email: ', email);
-    console.log('password: ', password);
-    if (email.length > 0 && password.length > 0) {
-      setIsLoginAvailable(true);
-    } else {
-      setIsLoginAvailable(false);
-    }
-  }, [email, password]);
+    router.push('/home');
+  };
 
   return (
     <div className="flex flex-col items-center h-screen p-8">
@@ -71,21 +71,30 @@ export default function Login() {
           />
         </div>
       </div>
+      {loginError === 'empty' && (
+        <div className="text-left w-full text-red-500 text-sm h-4">
+          이메일 또는 비밀번호를 입력해주세요.
+        </div>
+      )}
+      {loginError === 'unMatch' && (
+        <div className="text-left w-full text-red-500 text-sm h-4">
+          이메일 또는 비밀번호가 잘못되었습니다.
+        </div>
+      )}
+      {loginError === null && <div className="h-4"></div>}
 
       <div className="w-full">
-        {isLoginAvailable ? (
+        {email.length === 0 || password.length === 0 ? (
           <button
             onClick={handleClickLogin}
-            className="w-full h-12 rounded-md text-lg my-4 text-white bg-[#FFA33C]"
-            disabled={false}
+            className="w-full h-12 rounded-md text-lg my-4 text-white bg-[#c7c7c7]"
           >
             로그인
           </button>
         ) : (
           <button
             onClick={handleClickLogin}
-            className="w-full h-12 rounded-md text-lg my-4 text-white bg-[#c7c7c7]"
-            disabled={true}
+            className="w-full h-12 rounded-md text-lg my-2 text-white bg-[#FFA33C]"
           >
             로그인
           </button>
