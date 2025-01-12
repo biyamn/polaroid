@@ -20,8 +20,8 @@ const NavigationBar = () => {
         <Link href="/login">
           <button
             className="
-          bg-amber-400 text-white px-2 rounded-md h-8
-          hover:bg-amber-500 transition-colors text-sm
+          bg-amber-500 text-white px-2 rounded-md h-8
+          hover:bg-amber-600 transition-colors text-sm
         "
           >
             로그인
