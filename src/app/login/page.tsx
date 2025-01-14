@@ -15,6 +15,16 @@ export default function Login() {
 
   const router = useRouter();
 
+  const handleGoogleLogin = async () => {
+    try {
+      supabase.auth.signInWithOAuth({
+        provider: 'google',
+      });
+    } catch (error) {
+      console.error('Google Login Error:', error);
+    }
+  };
+
   const handleClickLogin = async () => {
     if (email.length === 0 || password.length === 0) {
       setLoginError('empty');
@@ -107,7 +117,10 @@ export default function Login() {
         </div>
       </div>
       <div className="w-full relative py-4">
-        <button className="w-full h-12 rounded-md text-lg text-[#8C8C8C] border border-gray-400">
+        <button
+          onClick={handleGoogleLogin}
+          className="w-full h-12 rounded-md text-lg text-[#8C8C8C] border border-gray-400"
+        >
           구글 계정으로 로그인
         </button>
         <Image
