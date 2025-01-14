@@ -19,6 +19,9 @@ export default function Login() {
     try {
       supabase.auth.signInWithOAuth({
         provider: 'google',
+        options: {
+          redirectTo: `${process.env.NEXT_PUBLIC_BACKEND_URL}`,
+        },
       });
     } catch (error) {
       console.error('Google Login Error:', error);
