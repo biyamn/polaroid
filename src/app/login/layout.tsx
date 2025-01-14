@@ -1,13 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import localFont from 'next/font/local';
-
-const pencilFont = localFont({
-  src: '../fonts/Hakgyoansim Geurimilgi TTF R.ttf',
-  display: 'swap',
-});
-
 export default function LoginLayout({
   children,
 }: {

@@ -3,7 +3,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-const NavigationBar = ({ isLogin }) => {
+type NavigationBarProps = {
+  isLogin: boolean;
+};
+
+const NavigationBar = ({ isLogin }: NavigationBarProps) => {
   return (
     <div className="flex justify-between bg-amber-200 px-7 pt-4 pb-2">
       <Link href="/home">
