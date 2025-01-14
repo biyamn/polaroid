@@ -3,6 +3,7 @@
 // import type { Metadata } from 'next';
 import './globals.css';
 import localFont from 'next/font/local';
+import { ReactQueryClientProvider } from '@/app/provider/ReactQueryProvider';
 
 const pencilFont = localFont({
   src: './fonts/Hakgyoansim Geurimilgi TTF R.ttf',
@@ -20,12 +21,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className="h-full">
-      <body
-        className={`h-dvh mx-auto w-96 ${pencilFont.className} flex flex-col`}
-      >
-        {children}
-      </body>
-    </html>
+    <ReactQueryClientProvider>
+      <html lang="ko" className="h-full">
+        <body
+          className={`h-dvh mx-auto w-96 ${pencilFont.className} flex flex-col`}
+        >
+          {children}
+        </body>
+      </html>
+    </ReactQueryClientProvider>
   );
 }

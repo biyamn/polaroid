@@ -12,6 +12,7 @@
     "@resvg/resvg-js": "^2.6.2",
     "@supabase/supabase-js": "^2.45.4",
     "@svgr/webpack": "^8.1.0",
+    "@tanstack/react-query": "^5.64.1",
     "@types/uuid": "^10.0.0",
     "encoding": "^0.1.13",
     "fs": "^0.0.1-security",

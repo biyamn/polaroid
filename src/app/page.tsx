@@ -4,6 +4,8 @@ import { useRef, useState } from 'react';
 import PrintAndEditBar from '@/app/components/layout/PrintAndEditBar';
 import RemoveAndConfirmBar from '@/app/components/layout/RemoveAndConfirmBar';
 import Polaroid from '@/app/components/Polaroid';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/supabase/supabaseClient';
 
 export default function Home() {
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -14,9 +16,19 @@ export default function Home() {
   const elementRef = useRef<HTMLDivElement>(null);
   const [date, setDate] = useState(new Date());
 
+  const { data: userData } = useQuery({
+    queryKey: ['userData'],
+    queryFn: async () => {
+      const { data } = await supabase.auth.getUser();
+      return data.user;
+    },
+  });
+
+  console.log('userData:', userData);
+
   return (
     <>
-      <NavigationBar />
+      <NavigationBar isLogin={!!userData} />
       <div className="flex flex-col justify-between bg-yellow-50 h-full">
         <div className="px-6 pb-6 pt-2 overflow-y-hidden">
           {!isEditing ? (
